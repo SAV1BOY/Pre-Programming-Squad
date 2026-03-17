@@ -1,0 +1,40 @@
+# Mapa de Origem de Defeitos — Pre-Programming Squad
+
+metric_name: "Mapa de Origem de Defeitos"
+
+description: |
+  Rastreia a origem dos defeitos encontrados em QA e produção até a fase
+  do processo onde foram introduzidos. O objetivo é demonstrar que defeitos
+  originados em falhas de pré-programação (requisitos ruins, design
+  inadequado, premissas erradas) diminuem ao longo do tempo, validando
+  a eficácia do squad. Este mapa também identifica padrões recorrentes
+  para melhoria contínua do processo de pré-programação.
+
+formula: |
+  Para cada defeito encontrado, classificar a fase de origem:
+  - Requisitos (captura incompleta, ambiguidade, omissão)
+  - Design/Arquitetura (decisão técnica inadequada, falta de consideração)
+  - Especificação (detalhe técnico incorreto ou ausente)
+  - Codificação (bug de implementação puro)
+  - Infraestrutura (configuração, ambiente, deploy)
+  - Integração (incompatibilidade entre componentes)
+
+  Taxa de Defeitos por Origem = (Defeitos da fase X / Total de defeitos) × 100
+
+  Índice de Eficácia Pré-Programação = 1 - (Defeitos_req + Defeitos_design + Defeitos_spec) / Total_defeitos
+
+  Tendência por fase = Comparação trimestral das taxas por origem
+
+  Custo por origem = Soma dos custos de correção de defeitos por fase de origem
+
+target: |
+  - Defeitos originados em requisitos: <= 10% do total
+  - Defeitos originados em design/arquitetura: <= 8% do total
+  - Defeitos originados em especificação: <= 7% do total
+  - Índice de Eficácia Pré-Programação: >= 0.75
+  - Tendência descendente para defeitos de pré-programação por 4 trimestres consecutivos
+  - Zero defeitos críticos (P0/P1) cuja origem seja falha de pré-programação
+
+frequency: "Mensal, com análise de tendência trimestral"
+
+owner: "Líder do Pre-Programming Squad em conjunto com QA Lead"

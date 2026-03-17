@@ -1,0 +1,75 @@
+# Registro de Riscos — Pre-Programming Squad
+# Identificação, avaliação e plano de resposta para riscos do projeto.
+
+description: |
+  Registro centralizado de todos os riscos identificados durante a fase de
+  pré-programação. Um risco é qualquer evento incerto que, se ocorrer, terá
+  impacto positivo ou negativo no projeto. Este registro documenta a
+  identificação, análise qualitativa e quantitativa, plano de resposta e
+  monitoramento contínuo de cada risco. Riscos não documentados são riscos
+  não gerenciados.
+
+schema:
+  id:
+    type: string
+    description: "Identificador único no formato RSK-NNN"
+    example: "RSK-001"
+  titulo:
+    type: string
+    description: "Descrição concisa do risco"
+    example: "Indisponibilidade da API de pagamento durante Black Friday"
+  data_identificacao:
+    type: date
+    description: "Data em que o risco foi identificado"
+  identificado_por:
+    type: string
+    description: "Pessoa que identificou o risco"
+  categoria:
+    type: string
+    enum: [tecnico, negocio, organizacional, externo, seguranca, compliance]
+    description: "Classificação do risco"
+  descricao:
+    type: string
+    description: "Descrição detalhada do risco, incluindo causa raiz e gatilhos"
+  probabilidade:
+    type: string
+    enum: [muito_baixa, baixa, media, alta, muito_alta]
+    description: "Probabilidade de ocorrência"
+  impacto:
+    type: string
+    enum: [insignificante, baixo, moderado, alto, catastrofico]
+    description: "Impacto caso o risco se materialize"
+  severidade:
+    type: string
+    description: "Calculada: probabilidade x impacto"
+    enum: [baixa, media, alta, critica]
+  estrategia:
+    type: string
+    enum: [evitar, mitigar, transferir, aceitar]
+    description: "Estratégia de resposta ao risco"
+  plano_resposta:
+    type: string
+    description: "Ações específicas para implementar a estratégia de resposta"
+  responsavel:
+    type: string
+    description: "Pessoa responsável por monitorar e responder ao risco"
+  gatilhos:
+    type: array
+    description: "Sinais que indicam que o risco está se materializando"
+  plano_contingencia:
+    type: string
+    description: "O que fazer se o risco se materializar apesar das mitigações"
+  status:
+    type: string
+    enum: [identificado, em_mitigacao, materializado, fechado, aceito]
+    description: "Estado atual do risco"
+  data_revisao:
+    type: date
+    description: "Data da última revisão do risco"
+  historico:
+    type: array
+    description: "Registro de mudanças de status e avaliação ao longo do tempo"
+
+entries: []
+
+version: "1.0.0"

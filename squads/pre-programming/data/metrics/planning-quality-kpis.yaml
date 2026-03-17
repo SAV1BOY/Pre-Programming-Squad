@@ -1,0 +1,43 @@
+# KPIs de Qualidade de Planejamento — Pre-Programming Squad
+
+metric_name: "KPIs de Qualidade de Planejamento"
+
+description: |
+  Conjunto de indicadores-chave de performance que medem a qualidade geral
+  do trabalho de pré-programação. Estes KPIs avaliam se o planejamento
+  realizado pelo squad está efetivamente reduzindo retrabalho, melhorando
+  a clareza dos requisitos e acelerando a entrega de software com menos
+  defeitos. São os indicadores agregados que demonstram o valor do squad
+  para a organização.
+
+formula: |
+  Índice composto calculado a partir de sub-métricas ponderadas:
+
+  IQP = (0.25 × Taxa de Completude de Requisitos)
+      + (0.20 × Índice de Clareza de Handoff)
+      + (0.20 × Taxa de Redução de Retrabalho)
+      + (0.15 × Cobertura de Riscos Identificados)
+      + (0.10 × Aderência ao Cronograma de Pré-programação)
+      + (0.10 × Satisfação do Time Receptor)
+
+  Onde cada sub-métrica é normalizada em escala 0-100.
+
+  Taxa de Completude de Requisitos = (Requisitos completos no handoff / Total de requisitos) × 100
+  Índice de Clareza de Handoff = Média das notas de clareza dos handoffs (escala 1-5, normalizada)
+  Taxa de Redução de Retrabalho = ((Retrabalho baseline - Retrabalho atual) / Retrabalho baseline) × 100
+  Cobertura de Riscos = (Riscos identificados pré-codificação / Total de riscos materializados) × 100
+  Aderência ao Cronograma = (Entregas no prazo / Total de entregas) × 100
+  Satisfação do Time Receptor = Média das notas de satisfação (escala 1-5, normalizada)
+
+target: |
+  - IQP geral: >= 80 pontos (escala 0-100)
+  - Taxa de Completude de Requisitos: >= 90%
+  - Índice de Clareza de Handoff: >= 4.0/5.0
+  - Taxa de Redução de Retrabalho: >= 30% em relação ao baseline
+  - Cobertura de Riscos: >= 75%
+  - Aderência ao Cronograma: >= 85%
+  - Satisfação do Time Receptor: >= 4.0/5.0
+
+frequency: "Mensal, com revisão trimestral de tendências"
+
+owner: "Líder do Pre-Programming Squad"

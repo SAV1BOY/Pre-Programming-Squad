@@ -1,0 +1,67 @@
+# Revisões de Prontidão — Pre-Programming Squad
+# Avaliações estruturadas de prontidão para iniciar a codificação.
+
+description: |
+  Registro de revisões de prontidão (readiness reviews) realizadas para
+  avaliar se um projeto, funcionalidade ou sprint está pronto para avançar
+  da fase de pré-programação para a codificação. Cada revisão avalia
+  critérios objetivos como clareza de requisitos, completude do design,
+  disponibilidade de dependências e preparação do ambiente de testes.
+  O objetivo é evitar que o time comece a codificar prematuramente.
+
+schema:
+  id:
+    type: string
+    description: "Identificador único no formato RDN-NNN"
+    example: "RDN-001"
+  escopo:
+    type: string
+    description: "O que está sendo avaliado (projeto, epic, feature, sprint)"
+  data:
+    type: date
+    description: "Data da revisão"
+  facilitador:
+    type: string
+    description: "Pessoa que conduziu a revisão"
+  participantes:
+    type: array
+    description: "Lista de participantes da revisão"
+  criterios:
+    type: array
+    description: "Critérios avaliados com nota e evidência"
+    items:
+      criterio:
+        type: string
+      nota:
+        type: integer
+        description: "Nota de 1 a 5"
+      evidencia:
+        type: string
+      bloqueante:
+        type: boolean
+  nota_geral:
+    type: number
+    description: "Média ponderada das notas dos critérios"
+  resultado:
+    type: string
+    enum: [aprovado, aprovado_com_ressalvas, reprovado]
+    description: "Resultado da revisão"
+  ressalvas:
+    type: array
+    description: "Condições que precisam ser atendidas (se aprovado com ressalvas)"
+  bloqueios:
+    type: array
+    description: "Itens que impediram aprovação (se reprovado)"
+  acoes_corretivas:
+    type: array
+    description: "Ações necessárias antes de nova revisão"
+  proxima_revisao:
+    type: date
+    description: "Data agendada para reavaliação (se não aprovado)"
+  notas:
+    type: string
+    description: "Observações adicionais da revisão"
+
+entries: []
+
+version: "1.0.0"

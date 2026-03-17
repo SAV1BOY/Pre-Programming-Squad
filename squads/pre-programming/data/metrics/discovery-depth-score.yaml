@@ -1,0 +1,30 @@
+# Discovery Depth Score
+# Métrica que avalia a profundidade da fase de discovery
+
+metric_name: discovery-depth-score
+description: Score que mede se discovery foi suficientemente profundo
+category: planning_quality
+frequency: per-project
+
+dimensions:
+  - name: stakeholder_coverage
+    weight: 0.20
+    description: Percentual de stakeholders consultados
+  - name: assumption_identification
+    weight: 0.25
+    description: Suposições explícitas e com plano de validação
+  - name: problem_root_cause
+    weight: 0.25
+    description: Causa raiz identificada vs sintoma
+  - name: context_completeness
+    weight: 0.15
+    description: Contexto documentado com dados
+  - name: question_resolution_rate
+    weight: 0.15
+    description: Percentual de perguntas abertas resolvidas
+
+thresholds:
+  excellent: 0.90
+  good: 0.75
+  needs_improvement: 0.60
+  critical: 0.40

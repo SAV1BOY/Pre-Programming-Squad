@@ -1,0 +1,61 @@
+# Log de Decisões — Pre-Programming Squad
+# Registro de todas as decisões tomadas durante a pré-programação.
+
+description: |
+  Registro cronológico de todas as decisões significativas tomadas durante
+  a fase de pré-programação. Diferente dos ADRs (que focam em decisões de
+  arquitetura), este log captura decisões de escopo, processo, priorização,
+  cronograma e abordagem geral. O objetivo é criar um histórico auditável
+  que explique por que o projeto tomou determinada direção.
+
+schema:
+  id:
+    type: string
+    description: "Identificador único no formato DEC-NNN"
+    example: "DEC-001"
+  titulo:
+    type: string
+    description: "Descrição concisa da decisão"
+    example: "Priorizar MVP sem integração com sistema legado"
+  data:
+    type: date
+    description: "Data em que a decisão foi tomada"
+  decisor:
+    type: string
+    description: "Pessoa ou grupo que tomou a decisão"
+  contexto:
+    type: string
+    description: "Situação que motivou a necessidade da decisão"
+  opcoes_avaliadas:
+    type: array
+    description: "Lista de alternativas consideradas com prós e contras"
+  decisao:
+    type: string
+    description: "O que foi decidido"
+  justificativa:
+    type: string
+    description: "Razões que fundamentaram a decisão"
+  impacto:
+    type: string
+    description: "Consequências esperadas da decisão"
+  riscos:
+    type: array
+    description: "Riscos associados à decisão tomada"
+  reversibilidade:
+    type: string
+    enum: [irreversivel, dificil_reverter, facil_reverter]
+    description: "Quão difícil é reverter esta decisão no futuro"
+  status:
+    type: string
+    enum: [vigente, superada, revertida]
+    description: "Estado atual da decisão"
+  premissas_relacionadas:
+    type: array
+    description: "IDs de premissas que sustentam esta decisão"
+  revisao:
+    type: date
+    description: "Data prevista para revisão da decisão"
+
+entries: []
+
+version: "1.0.0"

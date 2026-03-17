@@ -1,0 +1,41 @@
+# Taxa de Captura de Riscos — Pre-Programming Squad
+
+metric_name: "Taxa de Captura de Riscos"
+
+description: |
+  Mede a eficácia do squad em identificar riscos durante a fase de
+  pré-programação, antes que se materializem durante o desenvolvimento
+  ou em produção. Riscos identificados antecipadamente podem ser mitigados
+  com custo e esforço muito menores. Esta métrica compara os riscos
+  previstos pelo squad com os riscos que realmente se materializaram.
+
+formula: |
+  Taxa de Captura = (Riscos Previstos que se Materializaram / Total de Riscos Materializados) × 100
+
+  Onde:
+  - Riscos Previstos = Riscos registrados no risk register durante a pré-programação
+  - Riscos Materializados = Eventos de risco que realmente ocorreram durante o projeto
+
+  Métricas complementares:
+
+  Taxa de Falso Positivo = (Riscos previstos que NÃO se materializaram / Total de riscos previstos) × 100
+  (Aceitável ter alta taxa de falso positivo — é melhor prever demais que de menos)
+
+  Taxa de Surpresa = (Riscos materializados NÃO previstos / Total de riscos materializados) × 100
+  (Esta é a métrica crítica — quanto menor, melhor)
+
+  Eficácia da Mitigação = (Riscos mitigados com sucesso / Riscos com plano de mitigação ativado) × 100
+
+  Tempo de Resposta = Média de tempo entre materialização do risco e início da resposta
+
+target: |
+  - Taxa de captura: >= 70% dos riscos que se materializam
+  - Taxa de surpresa: <= 30%
+  - Eficácia da mitigação: >= 80%
+  - Tempo de resposta para riscos previstos: <= 4 horas
+  - Cobertura de categorias: riscos identificados em todas as categorias (técnico, negócio, organizacional, externo)
+  - Tendência: aumento trimestral da taxa de captura
+
+frequency: "Mensal, com análise retrospectiva a cada projeto concluído"
+
+owner: "Líder do Pre-Programming Squad"

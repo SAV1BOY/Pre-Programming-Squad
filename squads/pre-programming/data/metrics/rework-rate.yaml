@@ -1,0 +1,40 @@
+# Taxa de Retrabalho — Pre-Programming Squad
+
+metric_name: "Taxa de Retrabalho"
+
+description: |
+  Mede a porcentagem de trabalho de desenvolvimento que precisa ser refeito
+  devido a problemas que poderiam ter sido identificados durante a fase de
+  pré-programação. Retrabalho é qualquer esforço gasto refazendo algo que
+  já havia sido considerado "pronto" — seja por requisitos incompletos,
+  design inadequado, premissas incorretas ou edge cases não mapeados.
+  Esta é a métrica mais direta do valor do Pre-Programming Squad.
+
+formula: |
+  Taxa de Retrabalho = (Horas de Retrabalho / Total de Horas de Desenvolvimento) × 100
+
+  Classificação de retrabalho por causa raiz:
+  - Requisitos incompletos ou ambíguos
+  - Design ou arquitetura inadequada
+  - Premissas incorretas
+  - Edge cases não mapeados
+  - Mudança de escopo (não conta como retrabalho evitável)
+  - Dependência externa não mapeada
+  - Falta de alinhamento entre times
+
+  Taxa de Retrabalho Evitável = (Retrabalho por causas evitáveis / Total Horas Dev) × 100
+
+  Custo do Retrabalho = Horas de Retrabalho × Custo Médio por Hora
+
+  Trend = Comparação da taxa entre sprints ou meses consecutivos
+
+target: |
+  - Taxa de retrabalho total: <= 10%
+  - Taxa de retrabalho evitável: <= 5%
+  - Tendência: decrescente ao longo de 3 meses consecutivos
+  - Meta de longo prazo: < 3% de retrabalho evitável
+  - Nenhuma causa raiz individual deve representar > 30% do retrabalho total
+
+frequency: "A cada sprint (quinzenal), com consolidação mensal"
+
+owner: "Líder do Pre-Programming Squad em parceria com Scrum Masters dos times de desenvolvimento"

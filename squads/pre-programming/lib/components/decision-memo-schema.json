@@ -1,0 +1,176 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://pre-programming-squad/schemas/decision-memo.json",
+  "title": "Esquema do Memorando de Decisão",
+  "description": "Schema de validação para memorandos de decisão gerados durante a fase de pré-programação, documentando escolhas técnicas e de negócio com rastreabilidade.",
+  "type": "object",
+  "required": [
+    "titulo",
+    "tipo",
+    "decisao",
+    "justificativa",
+    "status"
+  ],
+  "properties": {
+    "numero": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Número sequencial do memorando."
+    },
+    "titulo": {
+      "type": "string",
+      "minLength": 10,
+      "description": "Título descritivo da decisão."
+    },
+    "data": {
+      "type": "string",
+      "format": "date",
+      "description": "Data da decisão."
+    },
+    "tipo": {
+      "type": "string",
+      "enum": ["tecnica", "arquitetural", "processo", "ferramenta", "infraestrutura", "seguranca", "negocio", "design"],
+      "description": "Tipo/categoria da decisão."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["rascunho", "em_revisao", "aprovada", "rejeitada", "implementada"],
+      "description": "Status atual da decisão."
+    },
+    "urgencia": {
+      "type": "string",
+      "enum": ["baixa", "media", "alta", "critica"],
+      "description": "Nível de urgência da decisão."
+    },
+    "autor": {
+      "type": "string",
+      "description": "Autor do memorando."
+    },
+    "resumo": {
+      "type": "string",
+      "maxLength": 500,
+      "description": "Resumo executivo da decisão em até 500 caracteres."
+    },
+    "contexto": {
+      "type": "string",
+      "minLength": 50,
+      "description": "Contexto e motivação que levaram à necessidade da decisão."
+    },
+    "opcoes": {
+      "type": "array",
+      "minItems": 2,
+      "description": "Opções consideradas na tomada de decisão.",
+      "items": {
+        "type": "object",
+        "required": ["nome", "descricao"],
+        "properties": {
+          "nome": { "type": "string", "description": "Nome da opção." },
+          "descricao": { "type": "string", "description": "Descrição da opção." },
+          "pros": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Pontos positivos."
+          },
+          "contras": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Pontos negativos."
+          },
+          "escolhida": {
+            "type": "boolean",
+            "description": "Se esta é a opção escolhida."
+          },
+          "custo_estimado": {
+            "type": "string",
+            "description": "Estimativa de custo para esta opção."
+          }
+        }
+      }
+    },
+    "decisao": {
+      "type": "string",
+      "minLength": 20,
+      "description": "Descrição da decisão tomada."
+    },
+    "justificativa": {
+      "type": "string",
+      "minLength": 30,
+      "description": "Justificativa detalhada para a escolha."
+    },
+    "impacto": {
+      "type": "object",
+      "description": "Análise de impacto da decisão.",
+      "properties": {
+        "tecnico": { "type": "string", "description": "Impacto técnico." },
+        "cronograma": { "type": "string", "description": "Impacto no cronograma." },
+        "custo": { "type": "string", "description": "Impacto no custo." },
+        "equipe": { "type": "string", "description": "Impacto na equipe." },
+        "riscos": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Riscos introduzidos pela decisão."
+        }
+      }
+    },
+    "plano_acao": {
+      "type": "array",
+      "description": "Ações necessárias para implementar a decisão.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "acao": { "type": "string", "description": "Descrição da ação." },
+          "responsavel": { "type": "string", "description": "Responsável." },
+          "prazo": { "type": "string", "format": "date", "description": "Prazo." },
+          "status": {
+            "type": "string",
+            "enum": ["pendente", "em_andamento", "concluida"],
+            "description": "Status da ação."
+          }
+        }
+      }
+    },
+    "participantes": {
+      "type": "array",
+      "description": "Participantes do processo de decisão.",
+      "items": {
+        "type": "object",
+        "required": ["nome"],
+        "properties": {
+          "nome": { "type": "string" },
+          "papel": { "type": "string" },
+          "voto": {
+            "type": "string",
+            "enum": ["favoravel", "contra", "neutro", "pendente"]
+          },
+          "data": { "type": "string", "format": "date" }
+        }
+      }
+    },
+    "artefatos_relacionados": {
+      "type": "array",
+      "description": "Artefatos e documentos relacionados à decisão.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "tipo": {
+            "type": "string",
+            "enum": ["adr", "project_brief", "risk_register", "documento", "diagrama", "outro"],
+            "description": "Tipo do artefato."
+          },
+          "referencia": { "type": "string", "description": "Referência ou caminho do artefato." },
+          "descricao": { "type": "string", "description": "Descrição da relação." }
+        }
+      }
+    },
+    "revisao": {
+      "type": "object",
+      "description": "Informações de revisão da decisão.",
+      "properties": {
+        "data_proxima_revisao": { "type": "string", "format": "date" },
+        "criterio_revisao": { "type": "string", "description": "Critério para revisão da decisão." },
+        "reversivel": { "type": "boolean", "description": "Se a decisão é reversível." }
+      }
+    }
+  },
+  "additionalProperties": false
+}

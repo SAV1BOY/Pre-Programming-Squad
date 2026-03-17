@@ -1,0 +1,171 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://pre-programming-squad/schemas/api-contract.json",
+  "title": "Esquema de Contrato de API",
+  "description": "Schema de validação para contratos de API definidos na fase de pré-programação, garantindo que interfaces estejam bem especificadas antes do desenvolvimento.",
+  "type": "object",
+  "required": [
+    "nome",
+    "versao",
+    "endpoints"
+  ],
+  "properties": {
+    "nome": {
+      "type": "string",
+      "minLength": 3,
+      "description": "Nome da API ou do serviço."
+    },
+    "versao": {
+      "type": "string",
+      "pattern": "^v?\\d+(\\.\\d+)*$",
+      "description": "Versão da API (ex: v1, 2.0)."
+    },
+    "descricao": {
+      "type": "string",
+      "description": "Descrição geral da API e seu propósito."
+    },
+    "base_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL base da API."
+    },
+    "autenticacao": {
+      "type": "object",
+      "description": "Esquema de autenticação da API.",
+      "properties": {
+        "tipo": {
+          "type": "string",
+          "enum": ["bearer_token", "api_key", "oauth2", "basic", "jwt", "nenhuma"],
+          "description": "Tipo de autenticação utilizado."
+        },
+        "descricao": {
+          "type": "string",
+          "description": "Detalhes sobre o fluxo de autenticação."
+        },
+        "headers": {
+          "type": "object",
+          "description": "Headers de autenticação necessários.",
+          "additionalProperties": { "type": "string" }
+        }
+      }
+    },
+    "endpoints": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Lista de endpoints da API.",
+      "items": {
+        "type": "object",
+        "required": ["metodo", "caminho", "descricao", "respostas"],
+        "properties": {
+          "metodo": {
+            "type": "string",
+            "enum": ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"],
+            "description": "Método HTTP do endpoint."
+          },
+          "caminho": {
+            "type": "string",
+            "pattern": "^/",
+            "description": "Caminho do endpoint (ex: /api/v1/usuarios)."
+          },
+          "descricao": {
+            "type": "string",
+            "description": "Descrição do que o endpoint faz."
+          },
+          "parametros": {
+            "type": "array",
+            "description": "Parâmetros do endpoint (path, query, header).",
+            "items": {
+              "type": "object",
+              "required": ["nome", "localizacao", "tipo"],
+              "properties": {
+                "nome": { "type": "string", "description": "Nome do parâmetro." },
+                "localizacao": {
+                  "type": "string",
+                  "enum": ["path", "query", "header", "cookie"],
+                  "description": "Onde o parâmetro é enviado."
+                },
+                "tipo": { "type": "string", "description": "Tipo de dado do parâmetro." },
+                "obrigatorio": { "type": "boolean", "description": "Se o parâmetro é obrigatório." },
+                "descricao": { "type": "string" },
+                "exemplo": { "description": "Valor de exemplo." }
+              }
+            }
+          },
+          "corpo_requisicao": {
+            "type": "object",
+            "description": "Esquema do corpo da requisição.",
+            "properties": {
+              "content_type": { "type": "string", "description": "Tipo de conteúdo (ex: application/json)." },
+              "schema": { "type": "object", "description": "JSON Schema do corpo." },
+              "exemplo": { "description": "Exemplo de corpo da requisição." }
+            }
+          },
+          "respostas": {
+            "type": "object",
+            "description": "Respostas possíveis mapeadas por código HTTP.",
+            "patternProperties": {
+              "^[1-5]\\d{2}$": {
+                "type": "object",
+                "properties": {
+                  "descricao": { "type": "string", "description": "Descrição da resposta." },
+                  "schema": { "type": "object", "description": "JSON Schema da resposta." },
+                  "exemplo": { "description": "Exemplo de resposta." },
+                  "headers": {
+                    "type": "object",
+                    "description": "Headers retornados.",
+                    "additionalProperties": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "taxa_limite": {
+            "type": "object",
+            "description": "Configuração de rate limiting.",
+            "properties": {
+              "requisicoes_por_minuto": { "type": "integer", "description": "Limite de requisições por minuto." },
+              "requisicoes_por_hora": { "type": "integer", "description": "Limite de requisições por hora." }
+            }
+          },
+          "tags": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Tags para agrupamento do endpoint."
+          }
+        }
+      }
+    },
+    "modelos": {
+      "type": "object",
+      "description": "Modelos de dados compartilhados pela API.",
+      "additionalProperties": {
+        "type": "object",
+        "description": "Definição de um modelo de dados."
+      }
+    },
+    "codigos_erro": {
+      "type": "array",
+      "description": "Códigos de erro padronizados da API.",
+      "items": {
+        "type": "object",
+        "required": ["codigo", "mensagem"],
+        "properties": {
+          "codigo": { "type": "string", "description": "Código do erro (ex: ERR_001)." },
+          "http_status": { "type": "integer", "description": "Código HTTP associado." },
+          "mensagem": { "type": "string", "description": "Mensagem descritiva do erro." },
+          "resolucao": { "type": "string", "description": "Como resolver o erro." }
+        }
+      }
+    },
+    "sla": {
+      "type": "object",
+      "description": "Acordo de nível de serviço da API.",
+      "properties": {
+        "disponibilidade": { "type": "string", "description": "Disponibilidade alvo (ex: 99.9%)." },
+        "latencia_p99": { "type": "string", "description": "Latência no percentil 99 (ex: 200ms)." },
+        "throughput": { "type": "string", "description": "Throughput esperado (ex: 1000 req/s)." }
+      }
+    }
+  },
+  "additionalProperties": false
+}

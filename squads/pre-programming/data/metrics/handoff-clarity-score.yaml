@@ -1,0 +1,42 @@
+# Score de Clareza do Handoff — Pre-Programming Squad
+
+metric_name: "Score de Clareza do Handoff"
+
+description: |
+  Mede a qualidade e clareza dos artefatos entregues pelo Pre-Programming
+  Squad aos times de desenvolvimento. Um handoff claro significa que o time
+  receptor consegue iniciar a codificação com confiança, sem precisar voltar
+  repetidamente ao squad para esclarecer dúvidas. Esta métrica é baseada
+  em feedback direto dos times receptores e em indicadores objetivos.
+
+formula: |
+  Score de Clareza = (0.30 × Avaliação Subjetiva) + (0.30 × Taxa de Retorno) + (0.20 × Completude) + (0.20 × Autonomia)
+
+  Avaliação Subjetiva (0-100):
+    Média das notas dadas pelo time receptor em pesquisa pós-handoff:
+    - Clareza dos requisitos (1-5)
+    - Clareza das decisões de arquitetura (1-5)
+    - Clareza dos contratos de integração (1-5)
+    - Clareza dos critérios de aceitação (1-5)
+    Normalizada para escala 0-100.
+
+  Taxa de Retorno (0-100):
+    100 - (Quantidade de perguntas de volta ao squad na primeira semana / Quantidade esperada baseline × 100)
+    Quanto menos perguntas de esclarecimento, melhor.
+
+  Completude (0-100):
+    (Artefatos entregues completos / Artefatos esperados no checklist) × 100
+
+  Autonomia (0-100):
+    (Dias que o time trabalhou sem bloqueio por falta de informação / Dias totais da primeira sprint) × 100
+
+target: |
+  - Score de Clareza geral: >= 80/100
+  - Avaliação Subjetiva: >= 4.0/5.0 em todas as dimensões
+  - Taxa de Retorno: <= 3 perguntas de esclarecimento na primeira semana
+  - Completude: 100% dos artefatos obrigatórios entregues
+  - Autonomia: >= 90% dos dias sem bloqueio por informação
+
+frequency: "A cada handoff realizado, com consolidação mensal"
+
+owner: "Líder do Pre-Programming Squad"

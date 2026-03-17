@@ -1,0 +1,87 @@
+# Registro de Handoffs — Pre-Programming Squad
+# Documentação de transferências de conhecimento e responsabilidade.
+
+description: |
+  Registro de todas as transferências (handoffs) realizadas pelo
+  Pre-Programming Squad para os times de desenvolvimento. Um handoff bem
+  executado transfere não apenas artefatos, mas contexto, decisões,
+  premissas, riscos e o raciocínio por trás de cada escolha. Este registro
+  documenta o que foi entregue, para quem, quando e o feedback recebido
+  sobre a qualidade da transferência.
+
+schema:
+  id:
+    type: string
+    description: "Identificador único no formato HND-NNN"
+    example: "HND-001"
+  projeto:
+    type: string
+    description: "Nome do projeto sendo transferido"
+  data_handoff:
+    type: date
+    description: "Data da transferência"
+  origem:
+    type: string
+    description: "Time ou pessoa que entrega (Pre-Programming Squad)"
+  destino:
+    type: string
+    description: "Time ou pessoa que recebe"
+  tipo:
+    type: string
+    enum: [completo, parcial, incremental]
+    description: "Tipo de handoff"
+  artefatos_entregues:
+    type: array
+    description: "Lista de artefatos incluídos no handoff"
+    items:
+      artefato:
+        type: string
+      tipo:
+        type: string
+        enum: [design_doc, adr, contrato_api, plano_teste, registro_risco, brief, outro]
+      localizacao:
+        type: string
+      status:
+        type: string
+        enum: [completo, parcial, rascunho]
+  sessao_walkthrough:
+    type: object
+    description: "Detalhes da sessão de walkthrough realizada"
+    properties:
+      data:
+        type: date
+      duracao:
+        type: string
+      participantes:
+        type: array
+      gravacao:
+        type: string
+  duvidas_abertas:
+    type: array
+    description: "Dúvidas do time receptor que ainda não foram resolvidas"
+  feedback_receptor:
+    type: object
+    description: "Feedback do time que recebeu o handoff"
+    properties:
+      clareza:
+        type: integer
+        description: "Nota 1-5 para clareza dos artefatos"
+      completude:
+        type: integer
+        description: "Nota 1-5 para completude da informação"
+      utilidade:
+        type: integer
+        description: "Nota 1-5 para utilidade prática"
+      comentarios:
+        type: string
+  suporte_pos_handoff:
+    type: string
+    description: "Plano de suporte do squad após a transferência"
+  status:
+    type: string
+    enum: [agendado, em_andamento, concluido, requer_complemento]
+    description: "Estado atual do handoff"
+
+entries: []
+
+version: "1.0.0"

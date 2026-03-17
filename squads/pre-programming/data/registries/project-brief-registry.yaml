@@ -1,0 +1,73 @@
+# Registro de Project Briefs — Pre-Programming Squad
+# Catálogo de resumos executivos de projetos avaliados pelo squad.
+
+description: |
+  Registro de todos os project briefs (resumos executivos de projeto) criados
+  ou avaliados pelo Pre-Programming Squad. Cada brief captura a essência do
+  projeto — problema a resolver, solução proposta, escopo, restrições,
+  métricas de sucesso e cronograma macro. O brief é o documento fundacional
+  que alinha todos os stakeholders antes de qualquer trabalho técnico detalhado.
+
+schema:
+  id:
+    type: string
+    description: "Identificador único no formato PBR-NNN"
+    example: "PBR-001"
+  titulo:
+    type: string
+    description: "Nome do projeto"
+  data_criacao:
+    type: date
+    description: "Data de criação do brief"
+  autor:
+    type: string
+    description: "Pessoa que criou o brief"
+  problema:
+    type: string
+    description: "Descrição clara do problema que o projeto resolve"
+  solucao_proposta:
+    type: string
+    description: "Visão geral da solução proposta"
+  escopo:
+    type: object
+    description: "O que está dentro e fora do escopo"
+    properties:
+      incluido:
+        type: array
+      excluido:
+        type: array
+  metricas_sucesso:
+    type: array
+    description: "Como será medido o sucesso do projeto"
+  stakeholders:
+    type: array
+    description: "Partes interessadas e seus papéis"
+  restricoes:
+    type: array
+    description: "Restrições técnicas, orçamentárias, temporais ou organizacionais"
+  premissas:
+    type: array
+    description: "Premissas que sustentam o brief"
+  cronograma_macro:
+    type: object
+    description: "Marcos principais e datas estimadas"
+  orcamento:
+    type: string
+    description: "Estimativa orçamentária de alto nível"
+  riscos_principais:
+    type: array
+    description: "Top 5 riscos identificados no nível do brief"
+  status:
+    type: string
+    enum: [rascunho, em_revisao, aprovado, rejeitado, em_execucao, concluido, cancelado]
+    description: "Estado atual do brief"
+  aprovadores:
+    type: array
+    description: "Lista de aprovadores e status de aprovação"
+  versao:
+    type: string
+    description: "Versão do brief"
+
+entries: []
+
+version: "1.0.0"

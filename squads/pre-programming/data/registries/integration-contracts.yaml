@@ -1,0 +1,92 @@
+# Contratos de Integração — Pre-Programming Squad
+# Especificações de interfaces entre sistemas e componentes.
+
+description: |
+  Registro de todos os contratos de integração definidos durante a
+  pré-programação. Contratos de integração especificam formalmente como
+  dois sistemas ou componentes se comunicam — formatos de dados, protocolos,
+  endpoints, autenticação, tratamento de erros e SLAs. Contratos bem
+  definidos permitem que times trabalhem em paralelo com confiança de que
+  as peças se encaixarão na integração.
+
+schema:
+  id:
+    type: string
+    description: "Identificador único no formato INT-NNN"
+    example: "INT-001"
+  nome:
+    type: string
+    description: "Nome descritivo do contrato"
+    example: "Contrato API Pedidos -> Serviço de Pagamento"
+  data_definicao:
+    type: date
+    description: "Data em que o contrato foi definido"
+  versao_contrato:
+    type: string
+    description: "Versão do contrato"
+  sistema_origem:
+    type: string
+    description: "Sistema ou componente que inicia a comunicação"
+  sistema_destino:
+    type: string
+    description: "Sistema ou componente que recebe a comunicação"
+  protocolo:
+    type: string
+    enum: [rest, grpc, graphql, mensageria, webhook, soap, arquivo]
+    description: "Protocolo de comunicação"
+  formato_dados:
+    type: string
+    enum: [json, protobuf, xml, avro, csv, parquet]
+    description: "Formato dos dados trocados"
+  autenticacao:
+    type: string
+    description: "Mecanismo de autenticação (API key, OAuth2, mTLS, etc.)"
+  endpoints:
+    type: array
+    description: "Lista de endpoints ou tópicos definidos no contrato"
+    items:
+      metodo:
+        type: string
+      path:
+        type: string
+      descricao:
+        type: string
+      request_schema:
+        type: string
+      response_schema:
+        type: string
+      codigos_erro:
+        type: array
+  sla:
+    type: object
+    description: "SLA acordado para o contrato"
+    properties:
+      latencia_p99:
+        type: string
+      disponibilidade:
+        type: string
+      throughput:
+        type: string
+  estrategia_versionamento:
+    type: string
+    description: "Como o contrato será versionado (URL, header, etc.)"
+  tratamento_erros:
+    type: string
+    description: "Padrão de tratamento de erros (retry, circuit breaker, DLQ)"
+  responsavel_origem:
+    type: string
+    description: "Time responsável pelo lado da origem"
+  responsavel_destino:
+    type: string
+    description: "Time responsável pelo lado do destino"
+  status:
+    type: string
+    enum: [rascunho, em_negociacao, acordado, implementado, depreciado]
+    description: "Estado atual do contrato"
+  documentacao:
+    type: string
+    description: "Link para documentação completa (OpenAPI, Proto, AsyncAPI)"
+
+entries: []
+
+version: "1.0.0"

@@ -1,0 +1,37 @@
+# Burndown de Ambiguidade — Pre-Programming Squad
+
+metric_name: "Burndown de Ambiguidade"
+
+description: |
+  Mede a taxa de redução de ambiguidades nos requisitos e especificações
+  ao longo do tempo durante a fase de pré-programação. Ambiguidade é
+  definida como qualquer requisito, regra de negócio ou especificação
+  técnica que pode ser interpretada de mais de uma forma por diferentes
+  membros do time. O objetivo é chegar a zero (ou próximo de zero)
+  ambiguidades antes de iniciar a codificação.
+
+formula: |
+  Ambiguidades Restantes = Ambiguidades Identificadas - Ambiguidades Resolvidas
+
+  Taxa de Resolução Diária = Ambiguidades Resolvidas no Dia / Ambiguidades Abertas no Início do Dia
+
+  Projeção de Conclusão = Ambiguidades Restantes / Média Móvel de Resolução Diária (últimos 5 dias)
+
+  Classificação de ambiguidades:
+  - Crítica: Bloqueia decisão de arquitetura ou design
+  - Alta: Afeta implementação de feature core
+  - Média: Afeta implementação de feature secundária
+  - Baixa: Cosmética ou de baixo impacto
+
+  O burndown plota: eixo X = dias, eixo Y = ambiguidades restantes (empilhadas por severidade)
+
+target: |
+  - Zero ambiguidades críticas no momento do handoff
+  - Máximo 2 ambiguidades de nível alto no handoff (com plano de resolução)
+  - Taxa de resolução semanal: >= 5 ambiguidades por semana
+  - Tendência de burndown consistentemente descendente
+  - Nenhuma ambiguidade deve permanecer aberta por mais de 10 dias úteis
+
+frequency: "Diária (atualização), Semanal (revisão de tendência)"
+
+owner: "Analista de Requisitos do Pre-Programming Squad"

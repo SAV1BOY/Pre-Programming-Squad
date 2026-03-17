@@ -1,0 +1,70 @@
+# Registro de Impacto em Sistemas Legados — Pre-Programming Squad
+# Análise de impacto do novo projeto em sistemas existentes.
+
+description: |
+  Registro de todos os impactos identificados do novo projeto em sistemas
+  legados existentes. Nenhum projeto nasce em vácuo — quase sempre há sistemas
+  existentes que serão afetados, substituídos parcialmente, integrados ou
+  migrados. Este registro documenta cada ponto de impacto, avalia o risco
+  e define estratégias de coexistência ou migração.
+
+schema:
+  id:
+    type: string
+    description: "Identificador único no formato LGC-NNN"
+    example: "LGC-001"
+  sistema_legado:
+    type: string
+    description: "Nome do sistema legado afetado"
+  componente_afetado:
+    type: string
+    description: "Módulo ou componente específico do legado que será impactado"
+  tipo_impacto:
+    type: string
+    enum: [substituicao, integracao, migracao_dados, coexistencia, descomissionamento]
+    description: "Natureza do impacto no sistema legado"
+  descricao:
+    type: string
+    description: "Descrição detalhada do impacto"
+  severidade:
+    type: string
+    enum: [critica, alta, media, baixa]
+    description: "Severidade do impacto"
+  usuarios_afetados:
+    type: string
+    description: "Quantidade e perfil dos usuários impactados"
+  dados_afetados:
+    type: string
+    description: "Volumes e tipos de dados envolvidos na migração ou integração"
+  estrategia:
+    type: string
+    description: "Estratégia para lidar com o impacto (strangler fig, big bang, paralelo)"
+  periodo_coexistencia:
+    type: string
+    description: "Duração estimada de coexistência entre novo e legado"
+  plano_rollback:
+    type: string
+    description: "Como reverter ao legado se o novo sistema falhar"
+  testes_regressao:
+    type: string
+    description: "Plano de testes de regressão no sistema legado"
+  responsavel:
+    type: string
+    description: "Pessoa responsável por gerenciar este impacto"
+  time_legado:
+    type: string
+    description: "Time que mantém o sistema legado"
+  status:
+    type: string
+    enum: [identificado, em_analise, plano_definido, em_execucao, concluido]
+    description: "Estado atual da gestão do impacto"
+  data_identificacao:
+    type: date
+    description: "Data de identificação do impacto"
+  notas:
+    type: string
+    description: "Observações adicionais"
+
+entries: []
+
+version: "1.0.0"

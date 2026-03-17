@@ -1,0 +1,21 @@
+# Scope Stability Index
+# Métrica que mede estabilidade do escopo ao longo do pipeline
+
+metric_name: scope-stability-index
+description: Índice de estabilidade do escopo desde definição até handoff
+category: efficiency
+frequency: per-project
+
+formula: 1 - (scope_changes / original_scope_items)
+
+interpretation:
+  1.0: Escopo mantido integralmente
+  0.8-0.99: Mudanças menores aceitáveis
+  0.6-0.79: Volatilidade moderada — investigar causas
+  below_0.6: Alta volatilidade — discovery insuficiente
+
+tracking:
+  - scope_items_original: Contagem na definição de escopo
+  - scope_items_added: Itens adicionados pós-definição
+  - scope_items_removed: Itens removidos pós-definição
+  - scope_changes_justified: Mudanças com justificativa documentada

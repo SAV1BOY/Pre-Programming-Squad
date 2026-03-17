@@ -1,0 +1,199 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://pre-programming-squad/schemas/test-plan.json",
+  "title": "Esquema do Plano de Testes",
+  "description": "Schema de validação para planos de teste definidos na fase de pré-programação, estabelecendo estratégia, cenários e critérios de cobertura.",
+  "type": "object",
+  "required": [
+    "titulo",
+    "estrategia",
+    "cenarios"
+  ],
+  "properties": {
+    "titulo": {
+      "type": "string",
+      "description": "Título do plano de testes."
+    },
+    "versao": {
+      "type": "string",
+      "description": "Versão do plano."
+    },
+    "data_criacao": {
+      "type": "string",
+      "format": "date",
+      "description": "Data de criação do plano."
+    },
+    "autor": {
+      "type": "string",
+      "description": "Autor do plano de testes."
+    },
+    "estrategia": {
+      "type": "object",
+      "description": "Estratégia geral de testes para o projeto.",
+      "required": ["abordagem", "niveis"],
+      "properties": {
+        "abordagem": {
+          "type": "string",
+          "description": "Descrição da abordagem de testes adotada."
+        },
+        "niveis": {
+          "type": "array",
+          "description": "Níveis de teste a serem executados.",
+          "items": {
+            "type": "object",
+            "required": ["nivel", "descricao"],
+            "properties": {
+              "nivel": {
+                "type": "string",
+                "enum": ["unitario", "integracao", "sistema", "aceite", "performance", "seguranca", "acessibilidade"],
+                "description": "Nível do teste."
+              },
+              "descricao": {
+                "type": "string",
+                "description": "Descrição de como este nível será abordado."
+              },
+              "ferramentas": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "Ferramentas utilizadas neste nível."
+              },
+              "meta_cobertura": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100,
+                "description": "Meta de cobertura percentual para este nível."
+              }
+            }
+          }
+        },
+        "automacao": {
+          "type": "object",
+          "description": "Estratégia de automação de testes.",
+          "properties": {
+            "percentual_alvo": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "Percentual alvo de automação."
+            },
+            "framework": {
+              "type": "string",
+              "description": "Framework de automação utilizado."
+            },
+            "pipeline_ci": {
+              "type": "boolean",
+              "description": "Se os testes automatizados rodam na CI."
+            }
+          }
+        }
+      }
+    },
+    "cenarios": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Cenários de teste planejados.",
+      "items": {
+        "type": "object",
+        "required": ["id", "titulo", "tipo", "prioridade"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Identificador único do cenário."
+          },
+          "titulo": {
+            "type": "string",
+            "description": "Título do cenário de teste."
+          },
+          "descricao": {
+            "type": "string",
+            "description": "Descrição detalhada do cenário."
+          },
+          "tipo": {
+            "type": "string",
+            "enum": ["funcional", "nao_funcional", "regressao", "exploratorio", "smoke", "sanity"],
+            "description": "Tipo do cenário de teste."
+          },
+          "prioridade": {
+            "type": "string",
+            "enum": ["critica", "alta", "media", "baixa"],
+            "description": "Prioridade de execução."
+          },
+          "requisito_id": {
+            "type": "string",
+            "description": "ID do requisito que este cenário valida."
+          },
+          "pre_condicoes": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Pré-condições necessárias."
+          },
+          "passos": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Passos para execução do cenário."
+          },
+          "resultado_esperado": {
+            "type": "string",
+            "description": "Resultado esperado do cenário."
+          },
+          "dados_teste": {
+            "type": "object",
+            "description": "Dados necessários para execução.",
+            "additionalProperties": true
+          },
+          "automatizado": {
+            "type": "boolean",
+            "description": "Se o cenário será automatizado."
+          }
+        }
+      }
+    },
+    "dados_teste": {
+      "type": "object",
+      "description": "Estratégia e definição de dados de teste.",
+      "properties": {
+        "estrategia": { "type": "string", "description": "Estratégia de geração/obtenção de dados." },
+        "ambientes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Ambientes onde os testes serão executados."
+        },
+        "anonimizacao": { "type": "boolean", "description": "Se dados devem ser anonimizados." }
+      }
+    },
+    "cobertura": {
+      "type": "object",
+      "description": "Critérios e metas de cobertura de testes.",
+      "properties": {
+        "codigo": { "type": "number", "description": "Meta de cobertura de código (%)." },
+        "requisitos": { "type": "number", "description": "Meta de cobertura de requisitos (%)." },
+        "cenarios_criticos": { "type": "number", "description": "Meta de cobertura de cenários críticos (%)." }
+      }
+    },
+    "cronograma": {
+      "type": "object",
+      "description": "Cronograma de execução dos testes.",
+      "properties": {
+        "inicio": { "type": "string", "format": "date" },
+        "fim": { "type": "string", "format": "date" },
+        "marcos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "nome": { "type": "string" },
+              "data": { "type": "string", "format": "date" },
+              "criterio": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "criterios_saida": {
+      "type": "array",
+      "description": "Critérios que devem ser atendidos para encerrar os testes.",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": false
+}

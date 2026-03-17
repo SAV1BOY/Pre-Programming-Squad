@@ -1,0 +1,50 @@
+# Score de Prontidão para Rollback — Pre-Programming Squad
+
+metric_name: "Score de Prontidão para Rollback"
+
+description: |
+  Avalia o quão preparado o projeto está para realizar rollback em caso
+  de falha durante o deploy ou após o lançamento. Projetos sem plano de
+  rollback claro são projetos com uma aposta unidirecional — se algo der
+  errado, o time entra em modo de crise. Esta métrica garante que a
+  pré-programação inclua planejamento de reversibilidade como prática
+  padrão.
+
+formula: |
+  Score de Rollback = Soma ponderada dos critérios:
+
+  1. Plano de Rollback Documentado (peso 25%):
+     Checklist: procedimento escrito, passo a passo, responsáveis definidos,
+     tempo estimado de execução.
+     Score: 0 (inexistente), 50 (parcial), 100 (completo e revisado)
+
+  2. Rollback de Dados Planejado (peso 25%):
+     Migrações de banco reversíveis, backup antes do deploy,
+     estratégia de dados criados durante a janela de deploy.
+     Score: 0 (não considerado), 50 (parcial), 100 (completo)
+
+  3. Feature Flags Definidas (peso 20%):
+     Funcionalidades críticas protegidas por feature flags que permitem
+     desativar sem deploy.
+     Score: (Features com flag / Features que deveriam ter flag) × 100
+
+  4. Teste de Rollback Planejado (peso 15%):
+     Existe plano para testar o rollback antes do go-live?
+     Score: 0 (não), 50 (planejado mas não testado), 100 (testado em staging)
+
+  5. Comunicação de Rollback (peso 15%):
+     Plano de comunicação para stakeholders em caso de rollback.
+     Score: 0 (inexistente), 50 (rascunho), 100 (aprovado e distribuído)
+
+target: |
+  - Score geral: >= 80/100 para deploys de alto risco
+  - Score geral: >= 60/100 para deploys de médio risco
+  - Plano de rollback documentado: obrigatório (100%) para todo deploy
+  - Rollback de dados: obrigatório para qualquer migração de schema
+  - Feature flags: obrigatório para funcionalidades voltadas ao usuário
+  - Teste de rollback: obrigatório em staging para deploys críticos
+  - Tempo máximo de rollback planejado: <= 30 minutos
+
+frequency: "Avaliado antes de cada go-no-go de deploy"
+
+owner: "Arquiteto de Soluções do Pre-Programming Squad"

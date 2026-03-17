@@ -1,0 +1,181 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://pre-programming-squad/schemas/handoff-package.json",
+  "title": "Esquema do Pacote de Handoff",
+  "description": "Schema de validação para o pacote de handoff (transição) entre a fase de pré-programação e a fase de desenvolvimento, garantindo completude e qualidade dos artefatos entregues.",
+  "type": "object",
+  "required": [
+    "resumo_executivo",
+    "artefatos",
+    "decisoes_tecnicas",
+    "readiness_score"
+  ],
+  "properties": {
+    "projeto": {
+      "type": "string",
+      "description": "Nome do projeto."
+    },
+    "versao": {
+      "type": "string",
+      "description": "Versão do pacote de handoff."
+    },
+    "data_handoff": {
+      "type": "string",
+      "format": "date",
+      "description": "Data planejada para o handoff."
+    },
+    "resumo_executivo": {
+      "type": "object",
+      "description": "Resumo executivo do projeto para a equipe de desenvolvimento.",
+      "required": ["objetivo", "escopo", "decisoes_chave", "riscos_principais", "proximos_passos"],
+      "properties": {
+        "objetivo": { "type": "string", "description": "Objetivo principal do projeto." },
+        "escopo": { "type": "string", "description": "Resumo do escopo." },
+        "decisoes_chave": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Principais decisões técnicas tomadas."
+        },
+        "riscos_principais": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Riscos mais relevantes a serem monitorados."
+        },
+        "proximos_passos": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Próximos passos recomendados para a equipe."
+        }
+      }
+    },
+    "artefatos": {
+      "type": "object",
+      "description": "Artefatos que compõem o pacote de handoff.",
+      "required": [
+        "project_brief",
+        "architecture_notes",
+        "risk_register",
+        "test_plan",
+        "api_contracts",
+        "acceptance_criteria"
+      ],
+      "properties": {
+        "project_brief": {
+          "$ref": "#/definitions/referencia_artefato",
+          "description": "Referência ao project brief do projeto."
+        },
+        "architecture_notes": {
+          "$ref": "#/definitions/referencia_artefato",
+          "description": "Referência às notas de arquitetura."
+        },
+        "risk_register": {
+          "$ref": "#/definitions/referencia_artefato",
+          "description": "Referência ao registro de riscos."
+        },
+        "test_plan": {
+          "$ref": "#/definitions/referencia_artefato",
+          "description": "Referência ao plano de testes."
+        },
+        "api_contracts": {
+          "$ref": "#/definitions/referencia_artefato",
+          "description": "Referência aos contratos de API."
+        },
+        "acceptance_criteria": {
+          "$ref": "#/definitions/referencia_artefato",
+          "description": "Referência aos critérios de aceite."
+        },
+        "decision_log": {
+          "$ref": "#/definitions/referencia_artefato",
+          "description": "Referência ao log de decisões."
+        },
+        "dependency_map": {
+          "$ref": "#/definitions/referencia_artefato",
+          "description": "Referência ao mapa de dependências."
+        },
+        "rollout_plan": {
+          "$ref": "#/definitions/referencia_artefato",
+          "description": "Referência ao plano de rollout."
+        },
+        "monitoring_plan": {
+          "$ref": "#/definitions/referencia_artefato",
+          "description": "Referência ao plano de monitoramento."
+        }
+      }
+    },
+    "decisoes_tecnicas": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Decisões técnicas chave documentadas.",
+      "items": {
+        "type": "object",
+        "required": ["decisao", "justificativa"],
+        "properties": {
+          "decisao": { "type": "string", "description": "Decisão tomada." },
+          "justificativa": { "type": "string", "description": "Justificativa." },
+          "alternativas": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Alternativas consideradas."
+          },
+          "impacto": { "type": "string", "description": "Impacto esperado." },
+          "adr_referencia": { "type": "string", "description": "Referência ao ADR correspondente." }
+        }
+      }
+    },
+    "readiness_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Score de prontidão do projeto (0-100)."
+    },
+    "checklist": {
+      "type": "array",
+      "description": "Checklist de completude do handoff.",
+      "items": {
+        "type": "object",
+        "required": ["item", "concluido"],
+        "properties": {
+          "item": { "type": "string", "description": "Descrição do item." },
+          "concluido": { "type": "boolean", "description": "Se o item foi concluído." },
+          "observacao": { "type": "string", "description": "Observação adicional." }
+        }
+      }
+    },
+    "aprovacoes": {
+      "type": "array",
+      "description": "Aprovações formais para o handoff.",
+      "items": {
+        "type": "object",
+        "required": ["nome", "papel", "status"],
+        "properties": {
+          "nome": { "type": "string" },
+          "papel": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": ["pendente", "aprovado", "rejeitado"]
+          },
+          "data": { "type": "string", "format": "date" },
+          "comentario": { "type": "string" }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "referencia_artefato": {
+      "type": "object",
+      "description": "Referência a um artefato do pacote.",
+      "required": ["caminho"],
+      "properties": {
+        "caminho": { "type": "string", "description": "Caminho relativo do artefato." },
+        "formato": { "type": "string", "description": "Formato do artefato (md, yaml, json)." },
+        "versao": { "type": "string", "description": "Versão do artefato." },
+        "status": {
+          "type": "string",
+          "enum": ["rascunho", "revisado", "aprovado"],
+          "description": "Status de aprovação do artefato."
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

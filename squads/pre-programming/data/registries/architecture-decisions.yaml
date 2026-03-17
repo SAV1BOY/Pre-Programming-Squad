@@ -1,0 +1,74 @@
+# Registro de Decisões de Arquitetura (ADR) — Pre-Programming Squad
+# Decisões técnicas de arquitetura com contexto, alternativas e consequências.
+
+description: |
+  Registro formal de decisões de arquitetura no formato ADR (Architecture
+  Decision Record). Cada entrada documenta uma decisão técnica significativa,
+  incluindo o contexto que a motivou, as alternativas consideradas, a decisão
+  tomada e suas consequências. ADRs são imutáveis — quando uma decisão é
+  superada, cria-se um novo ADR que referencia o anterior, mantendo o
+  histórico completo de evolução arquitetural.
+
+schema:
+  id:
+    type: string
+    description: "Identificador único no formato ADR-NNN"
+    example: "ADR-001"
+  titulo:
+    type: string
+    description: "Título descritivo da decisão de arquitetura"
+    example: "Adotar Event Sourcing para o domínio de pedidos"
+  data:
+    type: date
+    description: "Data da decisão"
+  status:
+    type: string
+    enum: [proposta, aceita, depreciada, superada]
+    description: "Estado atual do ADR"
+  contexto:
+    type: string
+    description: "Situação técnica que motivou a necessidade da decisão"
+  drivers:
+    type: array
+    description: "Forças que influenciam a decisão (requisitos, restrições, qualidades)"
+  opcoes:
+    type: array
+    description: "Alternativas avaliadas com prós e contras detalhados"
+    items:
+      nome:
+        type: string
+      descricao:
+        type: string
+      pros:
+        type: array
+      contras:
+        type: array
+  decisao:
+    type: string
+    description: "A decisão tomada e sua justificativa"
+  consequencias:
+    type: object
+    description: "Impactos positivos e negativos da decisão"
+    properties:
+      positivas:
+        type: array
+      negativas:
+        type: array
+      neutras:
+        type: array
+  qualidades_afetadas:
+    type: array
+    description: "Atributos de qualidade impactados (performance, manutenibilidade, etc.)"
+  adr_relacionados:
+    type: array
+    description: "IDs de ADRs relacionados ou superados"
+  autores:
+    type: array
+    description: "Pessoas que participaram da decisão"
+  revisores:
+    type: array
+    description: "Pessoas que revisaram o ADR"
+
+entries: []
+
+version: "1.0.0"

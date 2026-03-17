@@ -1,0 +1,60 @@
+# Registro de Cortes de Escopo — Pre-Programming Squad
+# Documentação de funcionalidades removidas ou adiadas e suas justificativas.
+
+description: |
+  Registro de todas as decisões de corte de escopo tomadas durante a
+  pré-programação e o planejamento. Cada corte documenta o que foi removido
+  ou adiado, por que, qual o impacto e quando (se aplicável) o item será
+  reconsiderado. Cortes de escopo não documentados geram confusão entre
+  stakeholders e criam expectativas desalinhadas sobre o que será entregue.
+
+schema:
+  id:
+    type: string
+    description: "Identificador único no formato SCP-NNN"
+    example: "SCP-001"
+  funcionalidade:
+    type: string
+    description: "Nome da funcionalidade cortada ou adiada"
+  descricao:
+    type: string
+    description: "Descrição do que estava originalmente planejado"
+  tipo_corte:
+    type: string
+    enum: [removido, adiado, reduzido]
+    description: "Se foi completamente removido, adiado ou reduzido em escopo"
+  data_decisao:
+    type: date
+    description: "Data em que o corte foi decidido"
+  decisor:
+    type: string
+    description: "Pessoa ou grupo que tomou a decisão"
+  justificativa:
+    type: string
+    description: "Razão detalhada para o corte"
+  impacto_negocio:
+    type: string
+    description: "Impacto do corte nos objetivos de negócio"
+  impacto_tecnico:
+    type: string
+    description: "Impacto do corte na arquitetura ou implementação técnica"
+  stakeholders_notificados:
+    type: array
+    description: "Lista de stakeholders que foram informados do corte"
+  data_reconsideracao:
+    type: date
+    description: "Data prevista para reconsiderar o item (se adiado)"
+  alternativa:
+    type: string
+    description: "Solução alternativa oferecida, se houver"
+  requisito_original:
+    type: string
+    description: "Referência ao requisito original que motivou a funcionalidade"
+  status:
+    type: string
+    enum: [cortado, adiado_backlog, em_reconsideracao, restaurado]
+    description: "Estado atual do item cortado"
+
+entries: []
+
+version: "1.0.0"

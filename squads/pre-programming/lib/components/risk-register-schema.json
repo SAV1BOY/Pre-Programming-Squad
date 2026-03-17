@@ -1,0 +1,130 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://pre-programming-squad/schemas/risk-register.json",
+  "title": "Esquema do Registro de Riscos",
+  "description": "Schema de validação para o registro de riscos do projeto, garantindo que cada risco seja adequadamente documentado, avaliado e com planos de mitigação.",
+  "type": "object",
+  "required": ["riscos"],
+  "properties": {
+    "projeto": {
+      "type": "string",
+      "description": "Nome do projeto ao qual o registro pertence."
+    },
+    "data_atualizacao": {
+      "type": "string",
+      "format": "date",
+      "description": "Data da última atualização do registro."
+    },
+    "responsavel_registro": {
+      "type": "string",
+      "description": "Responsável pela manutenção do registro de riscos."
+    },
+    "riscos": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Lista de riscos identificados no projeto.",
+      "items": {
+        "type": "object",
+        "required": ["id", "titulo", "descricao", "probabilidade", "impacto", "categoria"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^RSK-\\d{3,}$",
+            "description": "Identificador único do risco no formato RSK-NNN."
+          },
+          "titulo": {
+            "type": "string",
+            "minLength": 10,
+            "description": "Título resumido do risco."
+          },
+          "descricao": {
+            "type": "string",
+            "minLength": 20,
+            "description": "Descrição detalhada do risco e suas circunstâncias."
+          },
+          "probabilidade": {
+            "type": "string",
+            "enum": ["muito_baixa", "baixa", "media", "alta", "muito_alta"],
+            "description": "Probabilidade de ocorrência do risco."
+          },
+          "impacto": {
+            "type": "string",
+            "enum": ["muito_baixo", "baixo", "medio", "alto", "muito_alto"],
+            "description": "Impacto potencial caso o risco se materialize."
+          },
+          "categoria": {
+            "type": "string",
+            "enum": [
+              "tecnico", "organizacional", "externo", "gerenciamento",
+              "requisitos", "complexidade", "dependencias", "seguranca",
+              "performance", "integracao", "infraestrutura", "dados"
+            ],
+            "description": "Categoria do risco."
+          },
+          "status": {
+            "type": "string",
+            "enum": ["identificado", "analisado", "mitigando", "aceito", "resolvido", "fechado", "materializado"],
+            "description": "Status atual do risco."
+          },
+          "mitigacao": {
+            "type": "object",
+            "description": "Plano de mitigação do risco.",
+            "properties": {
+              "estrategia": {
+                "type": "string",
+                "enum": ["evitar", "transferir", "mitigar", "aceitar"],
+                "description": "Estratégia de tratamento do risco."
+              },
+              "acoes": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "Ações de mitigação planejadas."
+              },
+              "responsavel": {
+                "type": "string",
+                "description": "Responsável pela execução da mitigação."
+              },
+              "prazo": {
+                "type": "string",
+                "format": "date",
+                "description": "Prazo para implementar a mitigação."
+              }
+            }
+          },
+          "plano_contingencia": {
+            "type": "string",
+            "description": "Plano de contingência caso o risco se materialize."
+          },
+          "responsavel": {
+            "type": "string",
+            "description": "Responsável pelo monitoramento do risco."
+          },
+          "data_identificacao": {
+            "type": "string",
+            "format": "date",
+            "description": "Data de identificação do risco."
+          },
+          "data_revisao": {
+            "type": "string",
+            "format": "date",
+            "description": "Data da última revisão do risco."
+          },
+          "gatilho": {
+            "type": "string",
+            "description": "Evento ou indicador que sinaliza a materialização do risco."
+          },
+          "indicadores": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Indicadores de monitoramento do risco."
+          },
+          "notas": {
+            "type": "string",
+            "description": "Notas e observações adicionais."
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

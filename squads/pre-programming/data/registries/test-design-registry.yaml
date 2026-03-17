@@ -1,0 +1,70 @@
+# Registro de Design de Testes — Pre-Programming Squad
+# Planejamento de estratégia de testes antes da codificação.
+
+description: |
+  Registro do planejamento de testes definido durante a fase de pré-programação.
+  Testes planejados antes do código são mais eficazes, cobrem mais cenários
+  e guiam melhor a implementação. Este registro documenta a estratégia de testes,
+  cenários identificados, critérios de aceitação e a pirâmide de testes planejada
+  para cada funcionalidade ou componente do sistema.
+
+schema:
+  id:
+    type: string
+    description: "Identificador único no formato TST-NNN"
+    example: "TST-001"
+  funcionalidade:
+    type: string
+    description: "Nome da funcionalidade ou componente sendo testado"
+  data:
+    type: date
+    description: "Data do planejamento de teste"
+  autor:
+    type: string
+    description: "Responsável pelo design do teste"
+  nivel:
+    type: string
+    enum: [unitario, integracao, contrato, e2e, performance, seguranca]
+    description: "Nível do teste na pirâmide"
+  cenarios:
+    type: array
+    description: "Lista de cenários de teste identificados"
+    items:
+      descricao:
+        type: string
+      tipo:
+        type: string
+        enum: [caminho_feliz, edge_case, erro, concorrencia, carga]
+      prioridade:
+        type: string
+        enum: [critica, alta, media, baixa]
+      dados_necessarios:
+        type: string
+      resultado_esperado:
+        type: string
+  criterios_aceitacao:
+    type: array
+    description: "Critérios de aceitação derivados dos requisitos"
+  cobertura_alvo:
+    type: string
+    description: "Meta de cobertura de código para esta funcionalidade"
+  dependencias_teste:
+    type: array
+    description: "Mocks, stubs, fixtures ou serviços necessários para executar os testes"
+  automatizavel:
+    type: boolean
+    description: "Se o teste pode ser completamente automatizado"
+  ambiente_necessario:
+    type: string
+    description: "Ambiente necessário para execução (local, staging, sandbox)"
+  status:
+    type: string
+    enum: [planejado, em_implementacao, implementado, obsoleto]
+    description: "Estado atual do design de teste"
+  notas:
+    type: string
+    description: "Observações adicionais sobre complexidades ou riscos do teste"
+
+entries: []
+
+version: "1.0.0"

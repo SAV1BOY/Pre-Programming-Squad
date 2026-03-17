@@ -1,0 +1,60 @@
+# Log de Premissas — Pre-Programming Squad
+# Registro de todas as premissas assumidas durante a fase de pré-programação.
+# Premissas não validadas são riscos disfarçados.
+
+description: |
+  Registro centralizado de todas as premissas feitas durante o planejamento
+  e a fase de pré-programação. Cada premissa deve ser explicitamente documentada,
+  atribuída a um responsável por validação e monitorada até ser confirmada ou
+  refutada. Premissas não rastreadas são a causa mais comum de retrabalho
+  quando o código já está em produção.
+
+schema:
+  id:
+    type: string
+    description: "Identificador único no formato ASM-NNN"
+    example: "ASM-001"
+  titulo:
+    type: string
+    description: "Descrição curta da premissa"
+    example: "API de pagamento suporta PIX"
+  descricao:
+    type: string
+    description: "Descrição detalhada da premissa e seu contexto"
+  categoria:
+    type: string
+    enum: [negocio, tecnica, organizacional, regulatoria]
+    description: "Classificação da premissa"
+  data_registro:
+    type: date
+    description: "Data em que a premissa foi registrada"
+  autor:
+    type: string
+    description: "Pessoa que identificou a premissa"
+  impacto_se_falsa:
+    type: string
+    enum: [critico, alto, medio, baixo]
+    description: "Impacto no projeto caso a premissa se prove falsa"
+  status:
+    type: string
+    enum: [pendente, validada, refutada, expirada]
+    description: "Estado atual da premissa"
+  responsavel_validacao:
+    type: string
+    description: "Pessoa responsável por confirmar ou refutar a premissa"
+  prazo_validacao:
+    type: date
+    description: "Data limite para validação da premissa"
+  evidencia:
+    type: string
+    description: "Link ou descrição da evidência que confirma/refuta a premissa"
+  decisoes_dependentes:
+    type: array
+    description: "Lista de IDs de decisões que dependem desta premissa"
+  notas:
+    type: string
+    description: "Observações adicionais"
+
+entries: []
+
+version: "1.0.0"

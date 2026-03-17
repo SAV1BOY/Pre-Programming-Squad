@@ -1,0 +1,44 @@
+# Taxa de Edge Cases Não Mapeados — Pre-Programming Squad
+
+metric_name: "Taxa de Edge Cases Não Mapeados"
+
+description: |
+  Mede a porcentagem de edge cases (casos limítrofes) que foram descobertos
+  apenas durante a codificação, testes ou produção, mas que poderiam ter
+  sido identificados durante a fase de pré-programação. Edge cases não
+  mapeados são uma das principais fontes de bugs, retrabalho e atrasos.
+  Esta métrica avalia a eficácia do squad em antecipar cenários não óbvios.
+
+formula: |
+  Taxa de Edge Cases Não Mapeados = (EC_descobertos_pós / EC_total) × 100
+
+  Onde:
+  - EC_descobertos_pós = Edge cases descobertos durante codificação, QA ou produção
+    que são classificados como "evitáveis na pré-programação"
+  - EC_total = Total de edge cases identificados em todas as fases
+
+  Classificação por fase de descoberta:
+  - Pré-programação (ideal)
+  - Codificação (aceitável)
+  - Code Review (tardio)
+  - QA/Testes (caro)
+  - Produção (muito caro)
+
+  Custo relativo por fase de descoberta:
+  - Pré-programação: 1x
+  - Codificação: 5x
+  - QA: 10x
+  - Produção: 50-100x
+
+  Taxa de Captura Antecipada = (EC_pré_programação / EC_total) × 100
+
+target: |
+  - Taxa de edge cases não mapeados: <= 15%
+  - Taxa de captura antecipada (pré-programação): >= 60%
+  - Zero edge cases críticos descobertos em produção que poderiam ter sido previstos
+  - Tendência: aumento trimestral da taxa de captura antecipada
+  - Tempo médio de resolução de edge case pós-descoberta: <= 2 dias
+
+frequency: "A cada sprint, com análise retrospectiva mensal"
+
+owner: "Especialista de Qualidade do Pre-Programming Squad"

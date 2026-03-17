@@ -1,0 +1,66 @@
+# Mapa de Dependências — Pre-Programming Squad
+# Mapeamento completo de dependências técnicas e organizacionais.
+
+description: |
+  Mapa estruturado de todas as dependências do projeto, incluindo dependências
+  técnicas (bibliotecas, APIs, serviços) e organizacionais (times, aprovações,
+  fornecedores). Este registro permite visualizar a cadeia de dependências,
+  identificar caminhos críticos e antecipar pontos de bloqueio antes que
+  impactem o desenvolvimento.
+
+schema:
+  id:
+    type: string
+    description: "Identificador único no formato DPM-NNN"
+    example: "DPM-001"
+  nome:
+    type: string
+    description: "Nome da dependência"
+    example: "Serviço de Autenticação (Auth Service v3)"
+  tipo:
+    type: string
+    enum: [biblioteca, api_externa, servico_interno, infraestrutura, dados, time, fornecedor, regulatorio]
+    description: "Classificação do tipo de dependência"
+  direcao:
+    type: string
+    enum: [upstream, downstream, bidirecional]
+    description: "Direção da dependência em relação ao projeto"
+  componente_dependente:
+    type: string
+    description: "Componente do projeto que depende deste recurso"
+  criticidade:
+    type: string
+    enum: [bloqueante, alta, media, baixa]
+    description: "Grau de criticidade da dependência"
+  proprietario:
+    type: string
+    description: "Time ou organização responsável pela dependência"
+  contato:
+    type: string
+    description: "Ponto de contato principal"
+  sla:
+    type: string
+    description: "SLA acordado ou esperado"
+  versao:
+    type: string
+    description: "Versão atual em uso ou planejada"
+  status:
+    type: string
+    enum: [disponivel, em_desenvolvimento, planejado, indisponivel, depreciado]
+    description: "Estado atual da dependência"
+  alternativa:
+    type: string
+    description: "Alternativa disponível em caso de indisponibilidade"
+  data_necessidade:
+    type: date
+    description: "Data em que a dependência será necessária"
+  data_revisao:
+    type: date
+    description: "Última revisão do status da dependência"
+  notas:
+    type: string
+    description: "Observações adicionais"
+
+entries: []
+
+version: "1.0.0"

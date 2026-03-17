@@ -1,0 +1,194 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://pre-programming-squad/schemas/project-brief.json",
+  "title": "Esquema do Project Brief",
+  "description": "Schema de validação para documentos de Project Brief (Resumo do Projeto) utilizados na fase de pré-programação.",
+  "type": "object",
+  "required": [
+    "titulo",
+    "objetivo",
+    "escopo",
+    "stakeholders",
+    "prazo_estimado"
+  ],
+  "properties": {
+    "titulo": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 200,
+      "description": "Título do projeto. Deve ser claro e descritivo."
+    },
+    "versao": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+(\\.\\d+)?$",
+      "description": "Versão do documento no formato semântico (ex: 1.0.0)."
+    },
+    "data_criacao": {
+      "type": "string",
+      "format": "date",
+      "description": "Data de criação do documento no formato ISO 8601 (YYYY-MM-DD)."
+    },
+    "autor": {
+      "type": "string",
+      "description": "Nome do autor principal do project brief."
+    },
+    "objetivo": {
+      "type": "string",
+      "minLength": 50,
+      "description": "Objetivo principal do projeto. Deve ter no mínimo 50 caracteres e ser específico o suficiente para guiar decisões."
+    },
+    "descricao": {
+      "type": "string",
+      "minLength": 100,
+      "description": "Descrição detalhada do projeto, incluindo contexto e motivação."
+    },
+    "escopo": {
+      "type": "object",
+      "description": "Definição do escopo do projeto, separando o que está incluído do que está excluído.",
+      "required": ["incluso", "excluso"],
+      "properties": {
+        "incluso": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "description": "Lista de itens incluídos no escopo do projeto."
+        },
+        "excluso": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "description": "Lista de itens explicitamente excluídos do escopo."
+        }
+      }
+    },
+    "stakeholders": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Lista de stakeholders do projeto com seus papéis.",
+      "items": {
+        "type": "object",
+        "required": ["nome", "papel"],
+        "properties": {
+          "nome": {
+            "type": "string",
+            "description": "Nome completo do stakeholder."
+          },
+          "papel": {
+            "type": "string",
+            "description": "Papel do stakeholder no projeto (ex: Product Owner, Tech Lead)."
+          },
+          "contato": {
+            "type": "string",
+            "description": "Informação de contato (e-mail ou Slack)."
+          },
+          "nivel_envolvimento": {
+            "type": "string",
+            "enum": ["alto", "medio", "baixo", "informativo"],
+            "description": "Nível de envolvimento esperado no projeto."
+          }
+        }
+      }
+    },
+    "prazo_estimado": {
+      "type": "string",
+      "description": "Prazo estimado para conclusão do projeto. Aceita formato ISO 8601 (YYYY-MM-DD) ou duração textual (ex: '3 meses')."
+    },
+    "criterios_sucesso": {
+      "type": "array",
+      "description": "Critérios mensuráveis para definir o sucesso do projeto.",
+      "items": {
+        "type": "object",
+        "required": ["descricao", "metrica"],
+        "properties": {
+          "descricao": {
+            "type": "string",
+            "description": "Descrição do critério de sucesso."
+          },
+          "metrica": {
+            "type": "string",
+            "description": "Métrica ou KPI utilizado para medir o sucesso."
+          },
+          "meta": {
+            "type": ["string", "number"],
+            "description": "Valor alvo da métrica."
+          }
+        }
+      }
+    },
+    "restricoes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Restrições técnicas, orçamentárias ou operacionais do projeto."
+    },
+    "premissas": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Premissas assumidas para o planejamento do projeto."
+    },
+    "dependencias": {
+      "type": "array",
+      "description": "Dependências externas do projeto.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "descricao": {
+            "type": "string",
+            "description": "Descrição da dependência."
+          },
+          "tipo": {
+            "type": "string",
+            "enum": ["tecnica", "organizacional", "externa", "regulatoria"],
+            "description": "Tipo da dependência."
+          },
+          "responsavel": {
+            "type": "string",
+            "description": "Responsável pela resolução da dependência."
+          },
+          "prazo": {
+            "type": "string",
+            "format": "date",
+            "description": "Prazo para resolução."
+          }
+        }
+      }
+    },
+    "riscos_iniciais": {
+      "type": "array",
+      "description": "Riscos identificados inicialmente no projeto.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "descricao": { "type": "string" },
+          "probabilidade": {
+            "type": "string",
+            "enum": ["muito_baixa", "baixa", "media", "alta", "muito_alta"]
+          },
+          "impacto": {
+            "type": "string",
+            "enum": ["muito_baixo", "baixo", "medio", "alto", "muito_alto"]
+          }
+        }
+      }
+    },
+    "aprovadores": {
+      "type": "array",
+      "description": "Lista de aprovadores do project brief.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "nome": { "type": "string" },
+          "papel": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": ["pendente", "aprovado", "rejeitado"]
+          },
+          "data": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

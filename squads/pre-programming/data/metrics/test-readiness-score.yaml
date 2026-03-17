@@ -1,0 +1,50 @@
+# Score de Prontidão de Testes — Pre-Programming Squad
+
+metric_name: "Score de Prontidão de Testes"
+
+description: |
+  Avalia o quão preparado o projeto está para ser testado antes mesmo de
+  começar a codificação. Um alto score de prontidão de testes significa que
+  cenários foram mapeados, dados de teste foram planejados, ambientes estão
+  definidos e critérios de aceitação são verificáveis. Times que começam a
+  codificar sem prontidão de testes invariavelmente descobrem problemas
+  tarde demais.
+
+formula: |
+  Score de Prontidão = Soma ponderada dos critérios abaixo:
+
+  1. Cenários de Teste Mapeados (peso 25%):
+     (Cenários documentados / Cenários estimados necessários) × 100
+     Inclui: caminho feliz, edge cases, cenários de erro, concorrência.
+
+  2. Critérios de Aceitação Verificáveis (peso 20%):
+     (Critérios de aceitação com teste definido / Total de critérios) × 100
+     Cada critério deve ser testável de forma automatizada ou com procedimento claro.
+
+  3. Dados de Teste Planejados (peso 15%):
+     (Conjuntos de dados de teste definidos / Conjuntos necessários) × 100
+     Inclui: fixtures, factories, seeds, massa de dados.
+
+  4. Ambiente de Teste Definido (peso 15%):
+     Checklist binário: ambiente local configurado, CI configurado,
+     mocks de serviços externos definidos, sandbox de APIs disponível.
+
+  5. Pirâmide de Testes Definida (peso 15%):
+     Distribuição planejada entre unitários, integração, e2e.
+     Meta: 70% unitários, 20% integração, 10% e2e.
+
+  6. Dependências de Teste Resolvidas (peso 10%):
+     (Dependências de teste resolvidas / Total de dependências identificadas) × 100
+
+target: |
+  - Score geral: >= 75/100 para iniciar codificação
+  - Cenários de teste mapeados: >= 80%
+  - Critérios de aceitação verificáveis: 100%
+  - Dados de teste planejados: >= 70%
+  - Ambiente de teste: todos os itens do checklist atendidos
+  - Pirâmide de testes: definida e documentada
+  - Dependências: >= 90% resolvidas
+
+frequency: "Avaliado em cada readiness review antes do handoff"
+
+owner: "Especialista de Qualidade do Pre-Programming Squad"

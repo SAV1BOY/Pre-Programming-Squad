@@ -1,0 +1,71 @@
+# Log Go/No-Go — Pre-Programming Squad
+# Registro de decisões formais de prosseguir ou interromper.
+
+description: |
+  Registro de todas as decisões Go/No-Go tomadas nos gates do projeto.
+  Um gate Go/No-Go é um ponto de decisão formal onde se avalia se o projeto
+  deve avançar para a próxima fase, ser pausado para correções ou ser
+  cancelado. Este log documenta o contexto, os critérios avaliados, o
+  resultado e as condições associadas a cada decisão.
+
+schema:
+  id:
+    type: string
+    description: "Identificador único no formato GNG-NNN"
+    example: "GNG-001"
+  gate:
+    type: string
+    description: "Nome do gate de decisão"
+    example: "Gate de Início de Codificação"
+  data:
+    type: date
+    description: "Data da decisão"
+  fase_origem:
+    type: string
+    description: "Fase que está sendo concluída"
+  fase_destino:
+    type: string
+    description: "Fase para a qual se pretende avançar"
+  decisores:
+    type: array
+    description: "Lista de pessoas que participaram da decisão"
+  criterios_avaliados:
+    type: array
+    description: "Critérios avaliados com resultado"
+    items:
+      criterio:
+        type: string
+      resultado:
+        type: string
+        enum: [atendido, parcialmente_atendido, nao_atendido]
+      evidencia:
+        type: string
+      peso:
+        type: string
+        enum: [obrigatorio, desejavel]
+  resultado:
+    type: string
+    enum: [go, no_go, go_condicional]
+    description: "Decisão tomada"
+  condicoes:
+    type: array
+    description: "Condições a serem cumpridas (para go condicional)"
+  justificativa:
+    type: string
+    description: "Fundamentação da decisão"
+  riscos_aceitos:
+    type: array
+    description: "Riscos conhecidos que foram aceitos ao decidir Go"
+  acoes_pendentes:
+    type: array
+    description: "Ações que devem ser completadas antes ou durante a próxima fase"
+  proxima_revisao:
+    type: date
+    description: "Data da próxima revisão (especialmente para go condicional)"
+  notas:
+    type: string
+    description: "Observações adicionais"
+
+entries: []
+
+version: "1.0.0"

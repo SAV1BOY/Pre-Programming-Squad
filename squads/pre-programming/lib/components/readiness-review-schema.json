@@ -1,0 +1,156 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://pre-programming-squad/schemas/readiness-review.json",
+  "title": "Esquema de Revisão de Prontidão",
+  "description": "Schema de validação para revisões de prontidão que avaliam se o projeto está preparado para a transição da fase de pré-programação para desenvolvimento.",
+  "type": "object",
+  "required": [
+    "projeto",
+    "data_revisao",
+    "revisores",
+    "dimensoes",
+    "resultado"
+  ],
+  "properties": {
+    "projeto": {
+      "type": "string",
+      "description": "Nome do projeto sendo avaliado."
+    },
+    "data_revisao": {
+      "type": "string",
+      "format": "date",
+      "description": "Data em que a revisão foi realizada."
+    },
+    "revisores": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Lista de revisores que participaram da avaliação.",
+      "items": {
+        "type": "object",
+        "required": ["nome", "papel"],
+        "properties": {
+          "nome": { "type": "string", "description": "Nome do revisor." },
+          "papel": {
+            "type": "string",
+            "enum": ["tech_lead", "product_owner", "arquiteto", "qa_lead", "engenheiro", "gestor"],
+            "description": "Papel do revisor na revisão."
+          },
+          "voto": {
+            "type": "string",
+            "enum": ["go", "no_go", "condicional", "abstencao"],
+            "description": "Voto do revisor."
+          },
+          "condicoes": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Condições para voto condicional."
+          }
+        }
+      }
+    },
+    "dimensoes": {
+      "type": "array",
+      "minItems": 3,
+      "description": "Dimensões avaliadas na revisão de prontidão.",
+      "items": {
+        "type": "object",
+        "required": ["nome", "score", "peso"],
+        "properties": {
+          "nome": {
+            "type": "string",
+            "description": "Nome da dimensão avaliada."
+          },
+          "score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "description": "Score da dimensão (0-100)."
+          },
+          "peso": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Peso da dimensão no score final (0-1)."
+          },
+          "observacoes": {
+            "type": "string",
+            "description": "Observações sobre a avaliação desta dimensão."
+          },
+          "itens_avaliados": {
+            "type": "array",
+            "description": "Itens específicos avaliados nesta dimensão.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "item": { "type": "string" },
+                "status": {
+                  "type": "string",
+                  "enum": ["atendido", "parcial", "nao_atendido", "nao_aplicavel"]
+                },
+                "comentario": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "resultado": {
+      "type": "object",
+      "description": "Resultado consolidado da revisão.",
+      "required": ["score_final", "decisao"],
+      "properties": {
+        "score_final": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Score final ponderado da revisão."
+        },
+        "decisao": {
+          "type": "string",
+          "enum": ["go", "no_go", "condicional"],
+          "description": "Decisão final da revisão."
+        },
+        "condicoes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Condições a serem satisfeitas (para decisão condicional)."
+        },
+        "bloqueadores": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Itens bloqueadores identificados."
+        },
+        "recomendacoes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Recomendações dos revisores."
+        }
+      }
+    },
+    "proximos_passos": {
+      "type": "array",
+      "description": "Ações a serem tomadas após a revisão.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "acao": { "type": "string", "description": "Descrição da ação." },
+          "responsavel": { "type": "string", "description": "Responsável." },
+          "prazo": { "type": "string", "format": "date", "description": "Prazo." }
+        }
+      }
+    },
+    "historico_revisoes": {
+      "type": "array",
+      "description": "Histórico de revisões anteriores.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "data": { "type": "string", "format": "date" },
+          "score": { "type": "number" },
+          "decisao": { "type": "string" }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

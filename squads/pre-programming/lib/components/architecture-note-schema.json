@@ -1,0 +1,180 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://pre-programming-squad/schemas/architecture-note.json",
+  "title": "Esquema de Nota de Arquitetura",
+  "description": "Schema de validação para notas de arquitetura e registros de decisões arquiteturais (ADR) na fase de pré-programação.",
+  "type": "object",
+  "required": [
+    "titulo",
+    "contexto",
+    "decisao",
+    "consequencias",
+    "status"
+  ],
+  "properties": {
+    "titulo": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 200,
+      "description": "Título descritivo da decisão arquitetural."
+    },
+    "numero": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Número sequencial da nota de arquitetura."
+    },
+    "data_criacao": {
+      "type": "string",
+      "format": "date",
+      "description": "Data de criação da nota."
+    },
+    "data_revisao": {
+      "type": "string",
+      "format": "date",
+      "description": "Data da última revisão."
+    },
+    "autor": {
+      "type": "string",
+      "description": "Autor principal da decisão."
+    },
+    "revisores": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Lista de revisores da decisão."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["proposta", "aceita", "rejeitada", "obsoleta", "em_revisao"],
+      "description": "Status atual da decisão arquitetural."
+    },
+    "contexto": {
+      "type": "string",
+      "minLength": 100,
+      "description": "Contexto detalhado que motivou a decisão. Deve ter no mínimo 100 caracteres descrevendo o problema ou necessidade."
+    },
+    "decisao": {
+      "type": "string",
+      "minLength": 50,
+      "description": "Descrição clara da decisão tomada."
+    },
+    "alternativas": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Alternativas consideradas antes da decisão.",
+      "items": {
+        "type": "object",
+        "required": ["nome", "descricao"],
+        "properties": {
+          "nome": {
+            "type": "string",
+            "description": "Nome da alternativa."
+          },
+          "descricao": {
+            "type": "string",
+            "description": "Descrição da alternativa."
+          },
+          "pros": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Pontos positivos da alternativa."
+          },
+          "contras": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Pontos negativos da alternativa."
+          },
+          "rejeitada_por": {
+            "type": "string",
+            "description": "Motivo da rejeição desta alternativa."
+          }
+        }
+      }
+    },
+    "consequencias": {
+      "type": "object",
+      "description": "Consequências esperadas da decisão.",
+      "required": ["positivas", "negativas"],
+      "properties": {
+        "positivas": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "description": "Impactos positivos esperados."
+        },
+        "negativas": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "description": "Impactos negativos ou trade-offs."
+        }
+      }
+    },
+    "justificativa": {
+      "type": "string",
+      "description": "Justificativa detalhada para a escolha feita."
+    },
+    "restricoes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Restrições que influenciaram a decisão."
+    },
+    "dependencias": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Dependências afetadas ou criadas por esta decisão."
+    },
+    "componentes_afetados": {
+      "type": "array",
+      "description": "Componentes do sistema afetados pela decisão.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string",
+            "description": "Nome do componente."
+          },
+          "tipo_impacto": {
+            "type": "string",
+            "enum": ["criacao", "modificacao", "remocao", "configuracao"],
+            "description": "Tipo de impacto no componente."
+          },
+          "descricao_impacto": {
+            "type": "string",
+            "description": "Descrição do impacto específico."
+          }
+        }
+      }
+    },
+    "diagramas": {
+      "type": "array",
+      "description": "Diagramas associados à decisão.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "titulo": { "type": "string" },
+          "tipo": {
+            "type": "string",
+            "enum": ["sequencia", "componentes", "implantacao", "fluxo", "contexto", "outro"]
+          },
+          "caminho": { "type": "string" },
+          "descricao": { "type": "string" }
+        }
+      }
+    },
+    "referencias": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Referências externas (artigos, documentação, RFCs)."
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Tags para categorização e busca."
+    },
+    "supersedes": {
+      "type": "integer",
+      "description": "Número da nota de arquitetura que esta substitui."
+    }
+  },
+  "additionalProperties": false
+}

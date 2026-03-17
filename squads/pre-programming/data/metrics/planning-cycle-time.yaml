@@ -1,0 +1,41 @@
+# Cycle Time de Planejamento — Pre-Programming Squad
+
+metric_name: "Cycle Time de Planejamento"
+
+description: |
+  Mede o tempo total gasto na fase de pré-programação, desde o recebimento
+  da demanda até o handoff para o time de desenvolvimento. O objetivo é
+  garantir que a pré-programação agregue valor sem se tornar um gargalo.
+  Planejamento demais é tão prejudicial quanto planejamento de menos —
+  esta métrica ajuda a encontrar o equilíbrio certo.
+
+formula: |
+  Cycle Time Total = Data do Handoff - Data de Recebimento da Demanda
+
+  Decomposição por etapa:
+  - CT_compreensao = Tempo gasto entendendo o problema e contexto
+  - CT_pesquisa = Tempo gasto em pesquisa de domínio e stack
+  - CT_design = Tempo gasto em design e decisões de arquitetura
+  - CT_validacao = Tempo gasto validando premissas e dependências
+  - CT_documentacao = Tempo gasto documentando artefatos de handoff
+  - CT_revisao = Tempo gasto em revisões e ajustes
+
+  Cycle Time Total = CT_compreensao + CT_pesquisa + CT_design + CT_validacao + CT_documentacao + CT_revisao
+
+  Eficiência = (CT_design + CT_validacao) / CT_total × 100
+  (Quanto do tempo é gasto em atividades de alto valor)
+
+  Tempo de Espera = Tempo bloqueado esperando resposta de stakeholders ou dependências externas
+
+target: |
+  - Features pequenas (< 5 story points): <= 3 dias úteis
+  - Features médias (5-13 story points): <= 5 dias úteis
+  - Épicos: <= 10 dias úteis
+  - Projetos novos: <= 15 dias úteis
+  - Eficiência de tempo: >= 60% em atividades de alto valor
+  - Tempo de espera: <= 20% do cycle time total
+  - Tendência: estável ou decrescente ao longo do tempo
+
+frequency: "A cada handoff realizado, com consolidação quinzenal"
+
+owner: "Líder do Pre-Programming Squad"

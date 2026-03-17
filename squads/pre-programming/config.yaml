@@ -4,11 +4,15 @@
 
 squad:
   name: pre-programming
-  version: "2.0.0"
+  version: "2.1.0"
   description: "Implementation Readiness: tudo que acontece ANTES da primeira linha de código"
   chief_agent: pre-programming-chief
   agents: 18
   pipeline: "Pedido → Descoberta → Escopo → Decomposição → Arquitetura → Riscos → Testes → Prontidão → Handoff → Memória"
+  maturity_level: "GOLD/SOTA"
+  total_files: 694
+  architecture_doc: ARCHITECTURE.md
+  learning_mechanism: RalphLoop
 
 principles:
   - understand_before_build           # Entender o problema antes de resolver
@@ -188,20 +192,114 @@ routing:
     templates: [risk-register-template, rollback-plan-template]
     registry: [data/registries/risk-register, data/registries/decision-log]
 
+  # ---- V2: ADDITIONAL READINESS TYPES ----
+  backend-readiness:
+    agents: [system-architect, domain-modeler, performance-capacity-planner, test-strategist, readiness-gatekeeper]
+    frameworks: [stacks/backend-pre-coding-framework, architecture/v1-architecture-lens, architecture/data-shape-before-code]
+    checklists: [architecture-sketch-quality, domain-model-quality, performance-review-quality, test-design-quality]
+    templates: [architecture-sketch-template, domain-model-template, performance-plan-template, test-design-template]
+    registry: [data/registries/architecture-decisions, data/registries/readiness-reviews]
+
+  frontend-readiness:
+    agents: [system-architect, interface-designer, test-strategist, readiness-gatekeeper]
+    frameworks: [stacks/frontend-pre-coding-framework, architecture/boundary-first-design]
+    checklists: [architecture-sketch-quality, api-contract-quality, test-design-quality]
+    templates: [architecture-sketch-template, api-contract-template, test-design-template]
+    registry: [data/registries/architecture-decisions, data/registries/readiness-reviews]
+
+  mobile-readiness:
+    agents: [system-architect, interface-designer, performance-capacity-planner, readiness-gatekeeper]
+    frameworks: [stacks/mobile-pre-coding-framework, architecture/integration-pressure-map]
+    checklists: [architecture-sketch-quality, api-contract-quality, performance-review-quality]
+    templates: [architecture-sketch-template, api-contract-template, performance-plan-template]
+    registry: [data/registries/architecture-decisions, data/registries/readiness-reviews]
+
+  automation-readiness:
+    agents: [system-architect, decomposition-engineer, test-strategist, readiness-gatekeeper]
+    frameworks: [stacks/automation-workflow-readiness-framework]
+    checklists: [architecture-sketch-quality, test-design-quality, readiness-review-quality]
+    templates: [architecture-sketch-template, test-design-template, readiness-review-template]
+    registry: [data/registries/architecture-decisions, data/registries/readiness-reviews]
+
+  enterprise-integration-readiness:
+    agents: [system-architect, interface-designer, security-and-trust-reviewer, legacy-impact-auditor, readiness-gatekeeper]
+    frameworks: [stacks/enterprise-integration-readiness-framework, architecture/integration-pressure-map, legacy-boundary-isolation-framework]
+    checklists: [integration-impact-quality, security-review-quality, legacy-compatibility-quality, api-contract-quality]
+    templates: [integration-map-template, api-contract-template, security-review-template, legacy-impact-template]
+    registry: [data/registries/integration-contracts, data/registries/risk-register, data/registries/readiness-reviews]
+
+  refactor-readiness:
+    agents: [legacy-impact-auditor, system-architect, failure-analyst, test-strategist, readiness-gatekeeper]
+    frameworks: [stacks/legacy-refactor-readiness-framework, legacy-boundary-isolation-framework, risk/rollback-safety-ladder]
+    checklists: [legacy-compatibility-quality, legacy-refactor-readiness-quality, risk/rollback-strategy-audit, testing/testability-audit]
+    templates: [legacy-impact-template, risk-register-template, rollback-plan-template, test-design-template]
+    registry: [data/registries/legacy-impact-registry, data/registries/risk-register, data/registries/readiness-reviews]
+
+  internal-tool-readiness:
+    agents: [system-architect, decomposition-engineer, estimation-planner, readiness-gatekeeper]
+    frameworks: [stacks/internal-tooling-readiness-framework, architecture/v1-architecture-lens]
+    checklists: [architecture-sketch-quality, estimation-quality, readiness-review-quality]
+    templates: [architecture-sketch-template, estimation-template, readiness-review-template]
+    registry: [data/registries/architecture-decisions, data/registries/readiness-reviews]
+
+  # ---- V2: EXPANDED OPERATIONS ----
+  validate-assumptions:
+    agents: [requirements-clarifier, business-translator, problem-framer]
+    frameworks: [assumptions-to-evidence-framework, discovery/solution-jump-prevention]
+    checklists: [assumptions-log-quality, discovery/assumption-tracking-gate]
+    templates: [assumptions-log-template]
+    registry: [data/registries/assumptions-log]
+
+  map-dependencies:
+    agents: [stakeholder-mapper, system-architect, interface-designer]
+    frameworks: [dependency-criticality-matrix, architecture/integration-pressure-map]
+    checklists: [dependency-map-quality, risk/dependency-failure-audit]
+    templates: [integration-map-template]
+    registry: [data/registries/dependency-map]
+
+  evaluate-build-vs-buy:
+    agents: [build-vs-buy-analyst, system-architect, estimation-planner]
+    frameworks: [build-vs-buy-decision-framework, technical-debt-assessment-framework]
+    checklists: [build-vs-buy-quality, estimation-quality]
+    templates: [build-vs-buy-template, decision-memo-template]
+    registry: [data/registries/architecture-decisions, data/registries/decision-log]
+
+  run-observability-precheck:
+    agents: [performance-capacity-planner, system-architect]
+    frameworks: [observability-by-design]
+    checklists: [observability-quality, operations/observability-readiness-gate]
+    templates: [observability-plan-template]
+    registry: [data/registries/risk-register]
+
+  run-compliance-check:
+    agents: [security-and-trust-reviewer, business-translator]
+    frameworks: [security-by-design-primer]
+    checklists: [security-review-quality, risk/compliance-verification-gate]
+    templates: [security-review-template]
+    registry: [data/registries/risk-register]
+
+  prepare-environment:
+    agents: [handoff-orchestrator, system-architect]
+    frameworks: [environment-readiness-framework]
+    checklists: [environment-readiness-quality, readiness/environment-readiness-gate]
+    templates: [environment-readiness-template]
+    registry: [data/registries/readiness-reviews]
+
   # ---- LEARNING ----
   planning-retro:
     agents: [pre-programming-chief, readiness-gatekeeper]
-    frameworks: [readiness/decision-maturity-model]
-    checklists: []
-    templates: []
-    registry: [data/registries/decision-log, data/metrics/rework-rate, data/metrics/missed-edge-case-rate]
+    frameworks: [readiness/decision-maturity-model, kpi-driven-planning-framework]
+    checklists: [readiness-review-quality]
+    templates: [readiness-review-template]
+    registry: [data/registries/decision-log, data/metrics/rework-rate, data/metrics/missed-edge-case-rate, data/metrics/gate-pass-rate]
+    kpis_tracked: [ambiguity_burndown_rate, missed_edge_case_rate, rework_reduction_rate, handoff_clarity_score]
 
   cross-squad-sync:
     agents: [pre-programming-chief, handoff-orchestrator]
-    frameworks: []
-    checklists: [cross-squad-handoff-quality]
+    frameworks: [cross-squad-handoff-framework, multi-team-coordination-framework]
+    checklists: [cross-squad-handoff-quality, cross-squad/cross-squad-contract-gate, cross-squad/cross-squad-dependency-gate]
     templates: [implementation-handoff-template]
-    registry: [data/registries/handoff-registry]
+    registry: [data/registries/handoff-registry, data/registries/cross-squad-handoff-registry]
 
 # ============================================================
 # CROSS-SQUAD INTEGRATION (bidirecional)
@@ -349,3 +447,57 @@ defaults:
   test_design_before_code: true
   assumption_validation: mandatory
   escalation_on_irreversible: true
+  cross_squad_handoff_formal: true
+  kpi_collection_on_completion: true
+  ralphloop_retro_cadence: monthly
+
+# ============================================================
+# PROJECT CLASSIFICATION (sizing para roteamento)
+# ============================================================
+
+project_classification:
+  P:  # Pequeno
+    description: "Tarefa pontual, escopo claro, ~1 sprint"
+    mandatory_gates: [project-brief-quality, requirements-quality, test-design-quality, handoff-package-quality]
+    skip_gates: [architecture-sketch-quality, failure-modes-quality]
+    estimated_pipeline_time: "1-3 dias"
+  M:  # Médio
+    description: "Feature completa, 1-3 sprints, 1 squad"
+    mandatory_gates: all_mandatory
+    skip_gates: []
+    estimated_pipeline_time: "3-7 dias"
+  G:  # Grande
+    description: "Projeto multi-sprint, possível cross-squad"
+    mandatory_gates: all_mandatory + all_per_domain
+    skip_gates: []
+    estimated_pipeline_time: "1-2 semanas"
+    cross_squad_sync: required
+  XG: # Extra-Grande
+    description: "Programa multi-squad, alto impacto estratégico"
+    mandatory_gates: all_mandatory + all_per_domain
+    skip_gates: []
+    estimated_pipeline_time: "2-4 semanas"
+    cross_squad_sync: required
+    c_level_approval: required
+
+# ============================================================
+# ESCALATION RULES
+# ============================================================
+
+escalation:
+  irreversible_decision:
+    threshold: "Decisão que não pode ser revertida sem custo significativo"
+    escalate_to: c_level_squad
+    requires: [decision-memo, architecture-decision-record, chief-approval]
+  gate_failure_repeated:
+    threshold: "Mesmo gate falha 2x consecutivas"
+    escalate_to: pre-programming-chief
+    action: "Root cause analysis + processo de desbloqueio"
+  cross_squad_blocker:
+    threshold: "Dependência cross-squad bloqueante por >2 dias úteis"
+    escalate_to: [pre-programming-chief, target_squad_chief]
+    action: "Sync de desbloqueio em 24h"
+  security_critical:
+    threshold: "Risco de segurança classificado como crítico"
+    escalate_to: cybersecurity_squad
+    action: "Security assessment mandatório antes de prosseguir"

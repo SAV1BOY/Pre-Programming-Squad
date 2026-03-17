@@ -1,28 +1,45 @@
 # Psicologia do Scope Creep
 
 ## Viés/Efeito
-**Psicologia do Scope Creep:** A tendência de aceitar incrementos 'pequenos' de escopo que individualmente parecem razoáveis mas acumulativamente transformam o projeto em algo irreconhecível.
+
+**Psicologia do Scope Creep:** A tendência de aceitar incrementos 'pequenos' de escopo que individualmente parecem razoáveis mas acumulativamente transformam o projeto. Cada 'já que estamos aqui' adiciona 5% de escopo. Depois de 10 adições, o projeto é 50% maior que o original.
 
 ## Como se Manifesta em Pré-Programação
 
-- 'Já que estamos mexendo aqui, por que não adicionar X?' — cada X parece pequeno
-- Stakeholders adicionam requisitos em reuniões informais sem registro
-- Developers gold-plating: implementando além do pedido por perfeccionismo
-- Não dizer 'não' por medo de parecer não-colaborativo
+### Em Reuniões de Discovery
+Stakeholder menciona 'seria bom se também fizesse X'. Ninguém anota como scope change. X vira expectativa. No handoff, X está faltando e é considerado bug.
+
+### Em Design Reviews
+Arquiteto adiciona 'melhorias' que não estavam no escopo: 'já que estamos refatorando, vamos melhorar o cache'. Cache improvement vira 2 sprints extras.
+
+### No Dia-a-Dia
+Cada pessoa adiciona 'só mais uma coisinha'. Product owner, designer, dev, stakeholder. 4 pessoas × 3 adições = 12 itens fora do escopo original.
 
 ## Como Mitigar
 
-### 1. Documentar escopo com fronteiras explícitas e comp
-Documentar escopo com fronteiras explícitas e compartilhadas
+### 1. Scope Registry Formal
+Todo item de escopo registrado com ID. Qualquer adição passa por avaliação formal: impacto no prazo, impacto no esforço, quem aprova.
 
-### 2. Todo pedido novo passa por avaliação formal de imp
-Todo pedido novo passa por avaliação formal de impacto
+**Implementação prática no squad:**
+- Aplicar durante as fases relevantes do pipeline
+- Registrar decisões influenciadas por este viés no decision log
+- Revisar em RalphLoop retro se o viés foi detectado e mitigado
 
-### 3. Usar scope cuts registry para rastrear o que foi c
-Usar scope cuts registry para rastrear o que foi cortado e por quê
+### 2. Impacto Explícito
+Para cada adição proposta: 'Se adicionarmos X, o prazo aumenta em Y dias e o esforço em Z story points. Aceitar?'
 
-### 4. Revisão de escopo em cada gate do pipeline
-Revisão de escopo em cada gate do pipeline
+**Implementação prática no squad:**
+- Aplicar durante as fases relevantes do pipeline
+- Registrar decisões influenciadas por este viés no decision log
+- Revisar em RalphLoop retro se o viés foi detectado e mitigado
+
+### 3. Scope Cuts Registry
+Manter registro do que foi cortado e por quê. Referência para quando 'podemos adicionar de volta?' surgir.
+
+**Implementação prática no squad:**
+- Aplicar durante as fases relevantes do pipeline
+- Registrar decisões influenciadas por este viés no decision log
+- Revisar em RalphLoop retro se o viés foi detectado e mitigado
 
 ## Referências
 - Kahneman, D. — Thinking, Fast and Slow

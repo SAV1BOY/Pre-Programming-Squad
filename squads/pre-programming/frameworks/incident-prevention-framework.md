@@ -1,42 +1,72 @@
 # Incident Prevention Framework
 
 ## Propósito
-Framework para antecipar e prevenir incidentes em produção durante a fase de pré-programação.
+Antecipar e prevenir incidentes em produção durante a fase de pré-programação, transformando o aprendizado de incidentes passados em design defensivo.
+
+## Problema que Resolve
+A maioria dos incidentes em produção era previsível. Database sem failover cai. API sem timeout trava. Deploy sem rollback exige hotfix manual. Este framework força a pensar em cenários de falha antes do código existir.
 
 ## Quando Usar
-- Durante a fase de pré-programação quando o contexto exige este tipo de análise
-- Quando há complexidade ou incerteza no aspecto coberto por este framework
-- Como parte do pipeline padrão para projetos de média/alta complexidade
+- Durante a fase de Risk Review (obrigatório)
+- Quando Failure Analyst mapeia failure modes
+- Em projetos que tocam infraestrutura crítica
+- Em projetos com dependências externas (APIs de terceiros)
 
-## Processo / Passos
+## Categorias de Incidente Prevenível
 
-### Passo 1
-Revisar incidentes históricos de sistemas similares
+| Categoria | Exemplo | Prevenção |
+|-----------|---------|-----------|
+| **Disponibilidade** | Database única sem replica cai | Failover automático, read replicas |
+| **Performance** | Query N+1 em listagem com 100k registros | Query analysis em design review |
+| **Dados** | Migration sem rollback corrompe schema | Migration + rollback script testados |
+| **Integração** | API de terceiro fora do ar por 4h | Circuit breaker, fallback, retry com backoff |
+| **Segurança** | SQL injection em endpoint público | Input validation, parameterized queries |
+| **Operacional** | Deploy em sexta às 18h sem rollback plan | Deploy policy, rollback automático |
 
-### Passo 2
-Identificar pontos de falha no design proposto
+## Processo
 
-### Passo 3
-Definir circuit breakers e fallbacks
+### Passo 1 — Estudar Incidentes Históricos
+Consultar:
+- Post-mortems internos de projetos similares
+- `archive/failures/` do squad
+- Incidentes de empresas similares no setor
+- OWASP Top 10, NIST common vulnerabilities
 
-### Passo 4
-Planejar graceful degradation
+### Passo 2 — Pre-Mortem
+Imaginar que o projeto já falhou em produção. Perguntar:
+- "O que causou o incidente?"
+- "Que sinais havia antes do incidente?"
+- "O que poderíamos ter prevenido no design?"
 
-### Passo 5
-Definir alertas proativos
+### Passo 3 — Mapear Defesas por Categoria
+Para cada categoria aplicável ao projeto:
 
-### Passo 6
-Documentar runbooks de resposta
+| Defesa | Implementação | Custo | Impacto |
+|--------|--------------|-------|---------|
+| Circuit breaker em API de pagamento | Resilience4j / Polly | Baixo | Alto |
+| Retry com exponential backoff | Config de HTTP client | Baixo | Alto |
+| Feature flag para rollback instantâneo | LaunchDarkly / custom | Médio | Crítico |
+| Health check em todos os serviços | /health endpoint | Baixo | Alto |
+| Alertas proativos (latência, error rate) | Datadog / Grafana | Médio | Alto |
 
-## Armadilhas Comuns
+### Passo 4 — Incluir no Architecture Sketch
+Defesas não são "nice to have" — são componentes de arquitetura. Incluir no architecture sketch como decisão documentada.
 
-- **Confiar apenas em monitoramento reativo**
-- **Não estudar incidentes históricos**
-- **Design sem fallback para dependências externas**
-- **Não testar cenários de falha antes de produção**
+### Passo 5 — Validar com Failure Analyst
+O Failure Analyst revisa o mapa de defesas e questiona:
+- "E se [defesa X] falhar?"
+- "Qual é o modo de degradação?"
+- "O rollback funciona sem intervenção manual?"
 
-## Output Esperado
-Documento estruturado com análise, decisões e justificativas seguindo os passos acima.
+## Heurísticas
+1. **Se depende de terceiro, precisa de circuit breaker** — Sempre
+2. **Se tem database, precisa de failover** — Para sistemas críticos
+3. **Se tem deploy, precisa de rollback** — Feature flags ou blue-green
+4. **Se processa dados financeiros, precisa de idempotência** — Retry não pode duplicar transação
+5. **Se tem fila, precisa de dead letter queue** — Mensagens que falham precisam de destino
 
-## Frameworks Relacionados
-Consultar `config.yaml` para ver quais outros frameworks são acionados junto com este no pipeline de cada tipo de projeto.
+## Armadilhas
+- **"Nunca aconteceu, não vai acontecer"** → Normalcy bias — os piores incidentes são os que nunca aconteceram antes
+- **Monitoramento só reativo** → Alertas devem disparar antes do impacto ao usuário
+- **Design sem fallback** → Todo componente crítico precisa de degradation mode
+- **Rollback "manual"** → Se precisa de SSH para fazer rollback, não é rollback

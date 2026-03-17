@@ -1,28 +1,45 @@
 # Escalação de Compromisso em Projetos
 
 ## Viés/Efeito
-**Escalação de Compromisso em Projetos:** A tendência de continuar investindo em um projeto ou abordagem falha porque já investimos muito — em vez de cortar perdas e mudar de direção.
+
+**Escalação de Compromisso em Projetos:** A tendência de continuar investindo em projeto ou abordagem falha porque já investimos muito — em vez de cortar perdas. Staw (1976) demonstrou que pessoas investem mais em projetos falhando quando são responsáveis pela decisão inicial.
 
 ## Como se Manifesta em Pré-Programação
 
-- Continuar com arquitetura problemática porque 'já investimos 3 meses nela'
-- Não cancelar feature de baixo valor porque 'já começamos'
-- Resistir a pivotar abordagem técnica por causa de código já escrito
-- Stakeholders recusando cancelar projeto claramente inviável
+### Em Projetos Atrasados
+Projeto está 3 meses atrasado e 2x acima do budget. Ninguém propõe cancelar porque 'já investimos tanto'. Investem mais 3 meses e ficam 4x acima do budget.
+
+### Em Arquitetura Problemática
+Arquitetura escolhida está gerando dor. Refatorar custaria 2 sprints. Mas 'já investimos 6 meses nela', então continuam com workarounds que custam 1 sprint cada.
+
+### Em Tecnologia Errada
+Stack escolhida não atende performance requirements. Migrar custaria 3 semanas. Mas 'já escrevemos 10k LOC', então gastam 6 semanas otimizando o que nunca vai atingir o target.
 
 ## Como Mitigar
 
-### 1. Definir kill criteria antes de iniciar (condições 
-Definir kill criteria antes de iniciar (condições para cancelar)
+### 1. Kill Criteria Pré-Definidos
+Antes de iniciar, definir: 'Cancelamos se: budget exceder X, prazo exceder Y, ou requisito Z não for atendível'. Decisão automática, não emocional.
 
-### 2. Revisão de viabilidade em cada gate, não apenas no
-Revisão de viabilidade em cada gate, não apenas no início
+**Implementação prática no squad:**
+- Aplicar durante as fases relevantes do pipeline
+- Registrar decisões influenciadas por este viés no decision log
+- Revisar em RalphLoop retro se o viés foi detectado e mitigado
 
-### 3. Separar a decisão de investir mais da avaliação do
-Separar a decisão de investir mais da avaliação do investimento passado
+### 2. Separar Decisor de Investidor
+Quem decide continuar ou cancelar NÃO deve ser a mesma pessoa que propôs o projeto. Elimina viés de 'proteger minha decisão'.
 
-### 4. Perguntar: 'Se começássemos do zero hoje, faríamos
-Perguntar: 'Se começássemos do zero hoje, faríamos o mesmo?'
+**Implementação prática no squad:**
+- Aplicar durante as fases relevantes do pipeline
+- Registrar decisões influenciadas por este viés no decision log
+- Revisar em RalphLoop retro se o viés foi detectado e mitigado
+
+### 3. Revisão em Cada Gate
+Em cada gate transition, perguntar: 'Se começássemos do zero hoje, com o que sabemos agora, faríamos o mesmo?' Se não, considerar pivotar.
+
+**Implementação prática no squad:**
+- Aplicar durante as fases relevantes do pipeline
+- Registrar decisões influenciadas por este viés no decision log
+- Revisar em RalphLoop retro se o viés foi detectado e mitigado
 
 ## Referências
 - Kahneman, D. — Thinking, Fast and Slow

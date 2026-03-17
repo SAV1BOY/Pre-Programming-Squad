@@ -1,42 +1,68 @@
 # Data Migration Readiness Framework
 
 ## Propósito
-Framework para planejar migrações de dados com segurança, validação e rollback.
+Planejar migrações de dados com segurança, validação e rollback, evitando as armadilhas mais comuns: perda de dados, downtime não planejado e inconsistência.
+
+## Problema que Resolve
+80% das migrações de dados que dão errado falham por falta de planejamento: sem rollback, sem validação pós-migração, sem estimativa realista de tempo, sem comunicação de downtime.
 
 ## Quando Usar
-- Durante a fase de pré-programação quando o contexto exige este tipo de análise
-- Quando há complexidade ou incerteza no aspecto coberto por este framework
-- Como parte do pipeline padrão para projetos de média/alta complexidade
+- Em todo projeto que envolve mudança de schema
+- Em migrações entre sistemas ou databases
+- Em merges de dados de múltiplas fontes
+- Quando Legacy Impact Auditor identifica necessidade de migração
 
-## Processo / Passos
+## Classificação de Migração
 
-### Passo 1
-Mapear dados de origem e destino (schema, volume, qualidade)
+| Tipo | Risco | Exemplo |
+|------|-------|---------|
+| **Schema evolution** | Baixo-Médio | Adicionar coluna nullable, criar índice |
+| **Data transformation** | Médio | Normalizar formatos, split de tabela |
+| **Cross-system migration** | Alto | Migrar de MongoDB para PostgreSQL |
+| **Live migration** | Muito Alto | Migrar com sistema em produção |
 
-### Passo 2
-Definir regras de transformação e mapeamento
+## Processo
 
-### Passo 3
-Estabelecer critérios de validação pós-migração
+### Passo 1 — Análise de Dados
+- Volume: quantos registros/GB?
+- Qualidade: dados sujos? Duplicatas? Nulos inesperados?
+- Velocidade: tempo estimado de migração?
+- Dependências: quem consome estes dados?
 
-### Passo 4
-Planejar migração incremental vs big-bang
+### Passo 2 — Estratégia
+| Estratégia | Quando usar | Risco | Downtime |
+|-----------|-------------|-------|----------|
+| **Big bang** | Dados pequenos, janela de manutenção ok | Médio | Sim |
+| **Incremental** | Dados grandes, precisa de zero-downtime | Baixo | Mínimo |
+| **Dual-write** | Transição gradual com coexistência | Baixo | Zero |
+| **CDC (Change Data Capture)** | Sincronização contínua durante transição | Médio | Zero |
 
-### Passo 5
-Preparar rollback plan com verificação de integridade
+### Passo 3 — Rollback Plan
+**Obrigatório.** Para cada migração:
+- Script de rollback testado em staging
+- Backup verificado antes de executar
+- Critério de "abort": quando acionar rollback
+- Tempo estimado de rollback
 
-### Passo 6
-Definir janela de migração e comunicação
+### Passo 4 — Validação Pós-Migração
+```
+Checklist de validação:
+- [ ] Contagem de registros: origem = destino ± tolerância
+- [ ] Amostragem: 100 registros aleatórios verificados manualmente
+- [ ] Integridade referencial: FKs consistentes
+- [ ] Queries críticas: mesmos resultados no novo schema
+- [ ] Performance: queries dentro do SLA
+```
 
-## Armadilhas Comuns
+### Passo 5 — Comunicação e Execução
+- Notificar stakeholders sobre janela de migração
+- Executar em horário de menor tráfego
+- Monitorar em tempo real durante execução
+- Manter canal de comunicação aberto com time de suporte
 
-- **Não validar qualidade dos dados de origem**
-- **Migrar sem rollback plan testado**
-- **Subestimar o tempo de migração para volumes grandes**
-- **Não comunicar downtime ou impacto para usuários**
-
-## Output Esperado
-Documento estruturado com análise, decisões e justificativas seguindo os passos acima.
-
-## Frameworks Relacionados
-Consultar `config.yaml` para ver quais outros frameworks são acionados junto com este no pipeline de cada tipo de projeto.
+## Armadilhas
+- **Migrar sem backup verificado** → Backup não testado não é backup
+- **Subestimar volume** → 1M registros migra em minutos; 1B registros pode levar horas
+- **Não validar dados de origem** → Garbage in, garbage out
+- **Rollback "na teoria"** → Se o rollback script nunca rodou em staging, ele não funciona
+- **Comunicar downtime tarde demais** → Stakeholders devem saber com antecedência

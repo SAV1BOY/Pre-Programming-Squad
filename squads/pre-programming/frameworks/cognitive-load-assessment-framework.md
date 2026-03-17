@@ -1,42 +1,83 @@
 # Cognitive Load Assessment Framework
 
 ## Propósito
-Framework para avaliar e reduzir a carga cognitiva de decisões arquiteturais e de design, baseado em Team Topologies e Ousterhout.
+Avaliar e reduzir a carga cognitiva de decisões durante o pipeline de pré-programação. Baseado em Team Topologies (Skelton & Pais), Ousterhout (complexity management) e Sweller (cognitive load theory).
+
+## Problema que Resolve
+Times tomam decisões piores quando sobrecarregados cognitivamente. Quando 15 decisões arquiteturais competem por atenção ao mesmo tempo, nenhuma recebe análise adequada. Este framework sequencia e simplifica decisões para maximizar qualidade.
 
 ## Quando Usar
-- Durante a fase de pré-programação quando o contexto exige este tipo de análise
-- Quando há complexidade ou incerteza no aspecto coberto por este framework
-- Como parte do pipeline padrão para projetos de média/alta complexidade
+- Ao iniciar phase de architecture (muitas decisões simultâneas)
+- Quando time reporta fadiga de decisão ou análise paralysis
+- Em projetos G/XG com alta complexidade
+- Quando há prazo apertado e risco de decisões apressadas
 
-## Processo / Passos
+## Tipos de Carga Cognitiva
 
-### Passo 1
-Identificar decisões que o time precisa tomar
+### Intrínseca (inerente ao problema)
+- Complexidade do domínio de negócio
+- Número de integrações e dependências
+- Requisitos regulatórios
+- **Não pode ser eliminada**, apenas gerenciada
 
-### Passo 2
-Classificar cada decisão por complexidade cognitiva (baixa/média/alta)
+### Extrínseca (causada por processos ruins)
+- Documentação confusa ou ausente
+- Ferramentas mal configuradas
+- Reuniões sem agenda ou output claro
+- Checklists genéricos que não se aplicam ao contexto
+- **Deve ser eliminada** — é desperdício puro
 
-### Passo 3
-Mapear dependências entre decisões
+### Germana (investimento em aprendizado)
+- Entender novo domínio ou tecnologia
+- Absorver learnings de projetos anteriores
+- **Deve ser facilitada** — gera retorno futuro
 
-### Passo 4
-Sequenciar decisões para minimizar carga simultânea
+## Processo
 
-### Passo 5
-Simplificar decisões complexas quebrando em sub-decisões
+### Passo 1 — Inventariar Decisões Pendentes
+Listar todas as decisões que o pipeline precisa tomar neste projeto.
 
-### Passo 6
-Documentar decisões tomadas para reduzir carga futura
+Exemplo:
+| # | Decisão | Tipo | Carga | Reversível? |
+|---|---------|------|-------|-------------|
+| 1 | Escolha de database | Arquitetura | Alta | Não |
+| 2 | REST vs GraphQL | Interface | Média | Sim (parcialmente) |
+| 3 | Monolito vs microservices | Arquitetura | Alta | Não |
+| 4 | Provider de auth | Build vs Buy | Média | Sim |
+| 5 | Estratégia de cache | Performance | Baixa | Sim |
 
-## Armadilhas Comuns
+### Passo 2 — Classificar por Carga e Reversibilidade
+- **Alta + Irreversível:** Requer deep work session dedicada, mínimo 2 reviewers, ADR obrigatório
+- **Alta + Reversível:** Timebox de 2h, decidir com 80% de certeza, registrar em ADR
+- **Média:** Pode ser decidida em design review normal
+- **Baixa:** Pode ser delegada ou decidida assincronamente
 
-- **Subestimar o impacto de context-switching**
-- **Não considerar experiência do time ao avaliar carga**
-- **Tratar todas as decisões como igualmente importantes**
-- **Não documentar decisões, forçando re-decisão futura**
+### Passo 3 — Sequenciar para Minimizar Carga Simultânea
+Regras:
+1. **Máximo 2 decisões de alta carga por dia**
+2. **Decisões irreversíveis primeiro** (quando mente está fresca)
+3. **Não misturar decisões de domínios diferentes** na mesma sessão
+4. **Agrupar decisões relacionadas** (database + cache na mesma sessão)
 
-## Output Esperado
-Documento estruturado com análise, decisões e justificativas seguindo os passos acima.
+### Passo 4 — Simplificar Decisões Complexas
+Técnicas:
+- **Decomposição:** Quebrar decisão grande em sub-decisões menores
+- **Eliminação de opções:** Reduzir de 5 opções para 2-3 viáveis antes da análise profunda
+- **Timeboxing:** Decisões reversíveis não merecem mais que 2h de análise
+- **Reference class:** Consultar decisões similares em projetos anteriores
 
-## Frameworks Relacionados
-Consultar `config.yaml` para ver quais outros frameworks são acionados junto com este no pipeline de cada tipo de projeto.
+### Passo 5 — Documentar para Reduzir Re-decisão
+Toda decisão documentada em ADR elimina carga cognitiva futura. A próxima vez que alguém perguntar "por que escolhemos X?", a resposta está documentada.
+
+## Indicadores de Sobrecarga
+- Time pede "mais tempo para pensar" repetidamente sem output
+- Reuniões de decisão terminam sem decisão
+- Mesma decisão é rediscutida em múltiplas sessões
+- Qualidade de decisões cai no final do dia/semana
+- Aumento de decisões "por default" sem análise
+
+## Armadilhas
+- **Subestimar context-switching:** Alternar entre 3 projetos diferentes no mesmo dia é carga extrínseca pura
+- **Tratar todas as decisões como igualmente pesadas:** Decisões reversíveis de baixo impacto não merecem deep analysis
+- **Não considerar experiência do time:** Carga intrínseca é menor para times experientes no domínio
+- **Análise paralysis como sintoma:** Se o time não decide, a carga pode estar alta demais — simplificar antes de pressionar

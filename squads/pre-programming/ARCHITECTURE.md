@@ -1,6 +1,6 @@
 # ARCHITECTURE.md — Constituição do Pre-Programming Squad
 
-> **Versão:** 2.0.0
+> **Versão:** 2.1.0
 > **Squad:** Pre-Programming (MMOS)
 > **Última atualização:** 2026-03-17
 
@@ -269,3 +269,101 @@ O Pre-Programming Squad existe para ser o sistema operacional que transforma:
 - Planejamento em pacote executável
 
 **Sem este squad, o coding squad adivinha. Com este squad, o coding squad executa.**
+
+---
+
+## 13. Classificação de Projetos
+
+Cada projeto é classificado por porte para determinar profundidade do pipeline:
+
+| Porte | Escopo | Pipeline | Gates |
+|-------|--------|----------|-------|
+| **P** (Pequeno) | Tarefa pontual, ~1 sprint | 1-3 dias | 4 gates essenciais |
+| **M** (Médio) | Feature completa, 1-3 sprints | 3-7 dias | 8 gates mandatórios |
+| **G** (Grande) | Multi-sprint, possível cross-squad | 1-2 semanas | Todos os gates + per_domain |
+| **XG** (Extra-Grande) | Multi-squad, alto impacto | 2-4 semanas | Todos + C-Level approval |
+
+O `config.yaml` define quais gates são obrigatórios e quais podem ser pulados por porte.
+
+---
+
+## 14. Métricas e KPIs (17 indicadores em 4 categorias)
+
+### Planning Quality (5)
+| KPI | O que mede | Target |
+|-----|-----------|--------|
+| Ambiguity Burndown Rate | Velocidade de eliminação de ambiguidades | >80% resolvidas antes de scope |
+| Missed Requirement Rate | Requisitos descobertos pós-handoff | <5% |
+| Missed Edge Case Rate | Edge cases não previstos | <10% |
+| Defect Origin in Requirements | % defeitos originados em requisitos | <15% |
+| Assumption Validation Rate | % suposições validadas antes do handoff | >90% |
+
+### Efficiency (4)
+| KPI | O que mede | Target |
+|-----|-----------|--------|
+| Readiness Cycle Time | Tempo de intake → readiness | <7 dias (M), <14 dias (G) |
+| Planning to Delivery Ratio | Proporção planejamento / entrega | 15-25% |
+| Rework Reduction Rate | Redução de retrabalho vs baseline | >30% |
+| Pre-prod Defect Escape Rate | Defeitos que escapam para prod | <3% |
+
+### Architecture (4)
+| KPI | O que mede | Target |
+|-----|-----------|--------|
+| Architecture Reversal Rate | Reversão de decisões arquiteturais | <10% |
+| Build vs Buy Savings | Economia por decisões build/buy | Documentado por projeto |
+| Dependency Surprise Rate | Dependências não previstas | <5% |
+| Test Readiness Score | Score de prontidão de testes | >85/100 |
+
+### Operational (4)
+| KPI | O que mede | Target |
+|-----|-----------|--------|
+| Handoff Clarity Score | Clareza do pacote (avaliado pelo dev) | >8/10 |
+| Rollback Readiness Score | Prontidão de rollback | >90% |
+| Production Incident Prevented | Incidentes prevenidos | Documentado |
+| Readiness Gate Pass Rate | Aprovação no go/no-go 1ª tentativa | >75% |
+
+---
+
+## 15. Inventário do Squad (694 arquivos)
+
+| Diretório | Arquivos | Função |
+|-----------|----------|--------|
+| `agents/` | 18 | Definições de agentes especializados |
+| `checklists/` | 141 | Quality gates (28 macro + 35 micro + 64 gates por domínio + 14 gates sistêmicos) |
+| `frameworks/` | 85 | Modelos mentais e ferramentas de decisão (30 core + 20 proprietários + 14 intelectuais + 9 stacks + 12 V2) |
+| `reference/` | 94 | Base de conhecimento (23 livros + 22 psychology + 20 industries + 10 papers + 4 testing + 4 engineering + 3 ai + 3 product + 3 operations + 3 architecture) |
+| `templates/` | 30 | Outputs reutilizáveis com exemplos reais |
+| `tasks/` | 40 | Tipos de tarefa executáveis |
+| `workflows/` | 20 | Playbooks ponta-a-ponta |
+| `data/` | 45 | Memória operacional (13 registries + 16 metrics + 6 research + 10 storage dirs) |
+| `docs/` | 18 | Standards operacionais |
+| `voice/` | 22 | Perfis de tom, calibração e canais |
+| `phrases/` | 18 | Frases operacionais |
+| `scripts/` | 28 | Automação (validation, reporting, utilities, schemas) |
+| `lib/` | 31 | Componentes, patterns, taxonomias, utilitários |
+| `archive/` | 15 | Evolução, falhas e casos icônicos |
+| `authority/` | 15 | Resumos executivos de autoridade + workshop kits |
+| `projects/` | 72 | 10 tipos × 8 fases |
+| `swipe/` | 13 | Exemplos bons e ruins |
+| `swipe-sources/` | 8 | Fontes de referência (Google, Amazon, Netflix, Stripe...) |
+
+---
+
+## 16. Evolução e Maturidade (RalphLoop Kaizen)
+
+### Roadmap de Maturidade
+
+| Nível | Estado | Critério |
+|-------|--------|----------|
+| **WEAK** | Processo existe mas é ad-hoc | <50% dos gates passam, sem métricas |
+| **GOOD** | Processo documentado e seguido | >70% dos gates passam, métricas coletadas |
+| **GOLD** | Processo otimizado com feedback loop | >85% dos gates passam, KPIs dentro do target |
+| **SOTA** | Processo continuamente melhorado com dados | >95% dos gates passam, RalphLoop ativo, zero surpresas em handoff |
+
+### Ciclo de Evolução
+1. **Baseline:** Medir estado atual dos KPIs
+2. **Identificar:** Top 3 áreas de melhoria via RalphLoop retro
+3. **Implementar:** Ajustar checklists, frameworks, templates
+4. **Medir:** Comparar KPIs pós-mudança vs baseline
+5. **Registrar:** Documentar em `archive/evolution/`
+6. **Repetir:** Próximo ciclo mensal

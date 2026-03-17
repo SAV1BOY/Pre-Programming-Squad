@@ -1,0 +1,22 @@
+# Estimation Accuracy Tracking
+# Métrica de acurácia das estimativas ao longo do tempo
+
+metric_name: estimation-accuracy-tracking
+description: Comparação entre estimativas e realidade para calibração contínua
+category: efficiency
+frequency: per-project-completion
+
+formula: estimated_effort / actual_effort
+
+interpretation:
+  0.9-1.1: Estimativa precisa
+  0.7-0.89: Subestimação moderada (comum)
+  1.1-1.3: Superestimação moderada
+  below_0.7: Subestimação severa — aplicar reference class forecasting
+  above_1.3: Superestimação severa — revisar buffers
+
+tracking:
+  - project_type: Tipo de projeto para reference class
+  - estimated_hours: Estimativa original
+  - actual_hours: Horas reais gastas
+  - variance_reason: Motivo principal da variância

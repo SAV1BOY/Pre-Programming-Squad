@@ -1,0 +1,19 @@
+# Gate Pass Rate
+# Métrica de taxa de aprovação nos gates de qualidade
+
+metric_name: gate-pass-rate
+description: Percentual de gates aprovados na primeira tentativa
+category: efficiency
+frequency: monthly
+
+interpretation:
+  above_0.85: Processo maduro, qualidade consistente
+  0.70-0.85: Bom, com espaço para melhoria
+  0.50-0.70: Retrabalho frequente — revisar checklists e treinamento
+  below_0.50: Processo imaturo — ação corretiva necessária
+
+tracking:
+  - total_gates: Número total de gates executados
+  - first_pass: Gates aprovados na primeira tentativa
+  - second_pass: Gates aprovados na segunda tentativa
+  - failed: Gates que falharam mais de 2x

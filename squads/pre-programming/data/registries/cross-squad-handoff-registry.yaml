@@ -1,0 +1,33 @@
+# Cross-Squad Handoff Registry
+# Registro de todos os handoffs entre Pre-Programming e outros squads
+
+entries: []
+
+schema:
+  - field: handoff_id
+    type: string
+    description: Identificador único do handoff
+  - field: date
+    type: date
+    description: Data do handoff
+  - field: source_squad
+    type: string
+    description: Squad que envia
+  - field: target_squad
+    type: string
+    description: Squad que recebe
+  - field: direction
+    type: enum
+    values: [outbound, inbound]
+    description: Direção do handoff
+  - field: artifacts
+    type: list
+    description: Lista de artefatos entregues
+  - field: status
+    type: enum
+    values: [pending, delivered, accepted, rejected, revision_needed]
+  - field: acceptance_date
+    type: date
+    description: Data de aceite pelo squad receptor
+  - field: notes
+    type: text

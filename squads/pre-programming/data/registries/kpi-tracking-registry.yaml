@@ -1,0 +1,29 @@
+# KPI Tracking Registry
+# Registro consolidado de KPIs do squad
+
+kpi_categories:
+  planning_quality:
+    - rework-rate
+    - missed-edge-case-rate
+    - defect-origin-map
+    - ambiguity-burndown
+    - discovery-depth-score
+  efficiency:
+    - planning-cycle-time
+    - gate-pass-rate
+    - scope-stability-index
+    - estimation-accuracy-tracking
+  architecture:
+    - architecture-quality-score
+    - handoff-clarity-score
+    - test-readiness-score
+  operational:
+    - risk-capture-rate
+    - rollback-readiness-score
+    - cross-squad-handoff-quality
+
+tracking_cadence:
+  per_project: All KPIs collected at project completion
+  monthly: Aggregate dashboard updated
+  quarterly: Trend analysis and target adjustment
+  annually: Full review and recalibration

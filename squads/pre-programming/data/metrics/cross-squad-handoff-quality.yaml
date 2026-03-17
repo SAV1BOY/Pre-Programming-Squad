@@ -1,0 +1,27 @@
+# Cross-Squad Handoff Quality
+# Métrica de qualidade dos handoffs entre squads
+
+metric_name: cross-squad-handoff-quality
+description: Qualidade dos handoffs bidirecionais com outros squads
+category: operational
+frequency: per-handoff
+
+dimensions:
+  - name: completeness
+    weight: 0.30
+    description: Artefatos completos entregues
+  - name: clarity
+    weight: 0.25
+    description: Zero ambiguidades no pacote
+  - name: timeliness
+    weight: 0.20
+    description: Entrega dentro do prazo acordado
+  - name: acceptance_rate
+    weight: 0.25
+    description: Taxa de aceite sem retrabalho
+
+thresholds:
+  excellent: 0.90
+  good: 0.75
+  needs_improvement: 0.60
+  critical: 0.40

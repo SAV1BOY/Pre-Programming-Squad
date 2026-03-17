@@ -1,0 +1,30 @@
+# Architecture Quality Score
+# Métrica que avalia a qualidade das decisões arquiteturais no pipeline
+
+metric_name: architecture-quality-score
+description: Score agregado de qualidade de decisões de arquitetura
+category: architecture
+frequency: per-project
+
+dimensions:
+  - name: decision_documentation
+    weight: 0.25
+    description: ADRs completos com trade-offs documentados
+  - name: boundary_clarity
+    weight: 0.25
+    description: Fronteiras de módulos/serviços bem definidas
+  - name: testability_score
+    weight: 0.20
+    description: Arquitetura facilita testabilidade
+  - name: simplicity_score
+    weight: 0.15
+    description: Complexidade justificada, sem overengineering
+  - name: review_approval_rate
+    weight: 0.15
+    description: Taxa de aprovação em architecture reviews
+
+thresholds:
+  excellent: 0.90
+  good: 0.75
+  needs_improvement: 0.60
+  critical: 0.40

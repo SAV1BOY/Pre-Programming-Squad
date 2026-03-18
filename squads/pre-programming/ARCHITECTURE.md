@@ -254,10 +254,99 @@ Decisões irreversíveis recebem tratamento especial:
 | **Advisory Board** | Strategic technical decisions | Strategic guidance |
 | **Traffic** | Tracking requirements | Channel constraints |
 | **Storytelling** | Feature narrative | User journey insights |
+| **Brand** | Product naming/positioning constraints | Brand guidelines, tone requirements |
+| **Copy** | Content requirements, microcopy specs | Copy guidelines, messaging constraints |
+| **Movement** | Community impact assessment | Community feedback, cultural context |
 
 ---
 
-## 12. Princípio Central
+## 12. Tratamento de Tasks Fora do Escopo
+
+### Como o squad identifica tasks fora do escopo
+O Pre-Programming Squad opera **antes da primeira linha de código**. Qualquer pedido que exija:
+- Implementação de código → **delegar para Coding Squad**
+- Design de UI/UX → **delegar para Design Squad**
+- Análise de dados existentes em produção → **delegar para Data Squad**
+- Pentest ou auditoria de segurança em sistema rodando → **delegar para Cybersecurity Squad**
+- Pesquisa aprofundada que excede o escopo de discovery → **delegar para DeepResearch Squad**
+- Decisão estratégica de negócio (não técnica) → **escalar para C-Level Squad**
+
+### Protocolo de delegação
+1. O **agente que identificou** a task fora do escopo notifica o **Pre-Programming Chief**.
+2. O Chief classifica: **delegação pura** (sai do squad) ou **co-execução** (squad participa mas não lidera).
+3. O Chief registra em `data/registries/decision-log.yaml` o motivo da delegação.
+4. O **Handoff Orchestrator** prepara handoff formal para o squad receptor com contexto relevante.
+5. Se o resultado do squad externo impacta o projeto em pré-programação, o Chief define como e quando integrar.
+
+### Regra de ouro
+> Se um agente não sabe se a task é do escopo, pergunte: **"Isso precisa acontecer antes da primeira linha de código?"**
+> Se sim → é do Pre-Programming Squad.
+> Se não → é de outro squad. Delegue com handoff formal.
+
+---
+
+## 12.1. Error Budget e Tolerância de Desvio
+
+### O que é "bom o suficiente" para cada nível de projeto
+
+| Métrica | P (Pequeno) | M (Médio) | G (Grande) | XG (Extra) |
+|---------|-------------|-----------|------------|------------|
+| Gate pass rate na 1ª tentativa | ≥60% | ≥70% | ≥80% | ≥90% |
+| Suposições validadas pré-handoff | ≥70% | ≥85% | ≥90% | ≥95% |
+| Edge cases mapeados | Top 5 | Top 10 | Exaustivo | Exaustivo + stress test |
+| Requisitos sem ambiguidade | ≥80% | ≥90% | ≥95% | 100% |
+| KPI targets atingidos | ≥50% | ≥65% | ≥80% | ≥90% |
+
+### Quando o processo falhou (não a task)
+O processo de pré-programação falhou quando:
+- Mais de 3 gates falham na mesma sessão para o mesmo projeto.
+- O mesmo tipo de falha aparece em 3+ projetos consecutivos.
+- O coding squad reporta mais de 15% de retrabalho originado em pré-programação.
+- O handoff clarity score cai abaixo de 6/10 por 2 projetos consecutivos.
+
+**Ação**: acionar `planning-retro` (workflow 20 — RalphLoop) imediatamente, sem esperar cadência mensal.
+
+---
+
+## 12.2. Rework Loop — Protocolo de Retorno
+
+### Quando um output é reprovado no quality gate
+
+```
+Output reprovado no gate
+    │
+    ├─ Gate do agente individual (Nível 1)
+    │   → Retorna ao mesmo agente com feedback específico do checklist
+    │   → Agente corrige e resubmete
+    │   → Máximo 2 loops antes de escalar para Chief
+    │
+    ├─ Gate do Chief (Nível 3 — gate final do squad)
+    │   → Chief identifica qual agente/team precisa corrigir
+    │   → Devolve com instruções específicas e prazo
+    │   → Re-avaliação pelo Readiness Gatekeeper após correção
+    │
+    ├─ Gate cross-squad (Nível 4 — handoff rejeitado)
+    │   → Coding squad rejeita handoff por incompletude
+    │   → Handoff Orchestrator identifica gaps
+    │   → Chief redistribui correções aos agentes responsáveis
+    │   → Novo gate completo antes de re-handoff
+    │
+    └─ Gate HRM Central (Nível 5)
+        → Output do squad não atinge padrão GOLD exigido
+        → Chief registra como lesson learned
+        → RalphLoop retro é acionado
+        → Checklists e frameworks são atualizados
+```
+
+### Regras do rework loop
+1. **Máximo 2 loops por agente** antes de escalar para Chief.
+2. **Máximo 3 loops por task** antes de escalar para C-Level para reavaliar viabilidade.
+3. **Todo loop é registrado** em `data/registries/decision-log.yaml` com motivo e correção.
+4. **Loops recorrentes do mesmo tipo** acionam atualização de checklist/framework (Kaizen).
+
+---
+
+## 12.3. Princípio Central
 
 > **O maior custo invisível não é programar errado — é começar cedo demais.**
 

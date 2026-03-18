@@ -381,6 +381,27 @@ cross_squad:
       - "user journey insights → data/research (jornada do usuário)"
     shared_assets: [user-journey, feature-narrative]
 
+  brand_squad:
+    handoff_to_brand:
+      - "product naming/positioning constraints → brand/tasks (naming, positioning)"
+    handoff_from_brand:
+      - "brand guidelines → data/registries/assumptions-log (restricoes de marca)"
+    shared_assets: [brand-guidelines, naming-conventions]
+
+  copy_squad:
+    handoff_to_copy:
+      - "content requirements, microcopy specs → copy/tasks (UX writing, error messages)"
+    handoff_from_copy:
+      - "copy guidelines → data/registries/assumptions-log (restricoes de copy)"
+    shared_assets: [microcopy-specs, error-message-guidelines]
+
+  movement_squad:
+    handoff_to_movement:
+      - "community impact assessment → movement/tasks (impacto em comunidade)"
+    handoff_from_movement:
+      - "community feedback → data/research (contexto cultural)"
+    shared_assets: [community-impact, cultural-context]
+
 # ============================================================
 # QUALITY GATES
 # ============================================================

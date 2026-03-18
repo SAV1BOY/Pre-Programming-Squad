@@ -254,6 +254,9 @@ Decisões irreversíveis recebem tratamento especial:
 | **Advisory Board** | Strategic technical decisions | Strategic guidance |
 | **Traffic** | Tracking requirements | Channel constraints |
 | **Storytelling** | Feature narrative | User journey insights |
+| **Brand** | Product naming/positioning constraints | Brand guidelines, tone requirements |
+| **Copy** | Content requirements, microcopy specs | Copy guidelines, messaging constraints |
+| **Movement** | Community impact assessment | Community feedback, cultural context |
 
 ---
 
